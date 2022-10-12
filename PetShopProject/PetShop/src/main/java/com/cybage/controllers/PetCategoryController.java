@@ -34,14 +34,14 @@ public class PetCategoryController
 	PetCategoryServiceImpl petCategoryServiceImpl;
 	
 	@PostMapping("/addPetCategory")
-	public ResponseEntity<PetCategory> addPetCategory(@RequestBody PetCategory petCategory,@RequestParam("profileImage") MultipartFile file) throws IOException
+	public ResponseEntity<PetCategory> addPetCategory(@RequestBody PetCategory petCategory,@RequestParam("petCategoryImage") MultipartFile file) throws IOException
 	{
 		//upload the file to folder and update name to pet category
 		petCategory.setCategoryImage(file.getOriginalFilename());
 		File saveFile = new ClassPathResource("static/img").getFile();
 		Path path = Paths.get(saveFile.getAbsolutePath()+File.separator+file.getOriginalFilename());
 		Files.copy(file.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
-		System.out.println("Image is uploaded");
+		System.out.println("Pet Catrgory image is uploaded");
 		return new ResponseEntity<PetCategory>(petCategoryServiceImpl.addPetCategory(petCategory), HttpStatus.CREATED);
 	}
 	
