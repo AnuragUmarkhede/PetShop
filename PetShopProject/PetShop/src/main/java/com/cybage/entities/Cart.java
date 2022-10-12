@@ -30,6 +30,10 @@ public class Cart
 	
 	@OneToMany(mappedBy = "cart",cascade = CascadeType.ALL)
 	@JsonManagedReference
+	private List<Pet> pets;
+	
+	@OneToMany(mappedBy = "cart",cascade = CascadeType.ALL)
+	@JsonManagedReference
 	private List<PetFood> petFoods;
 	
 	@OneToMany(mappedBy = "cart",cascade = CascadeType.ALL)

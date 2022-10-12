@@ -29,6 +29,7 @@ public class PetFood
 	@ManyToOne
 	@JoinColumn(name="cart_id")
 	private Cart cart;
+	
 	@ManyToOne
 	@JoinColumn(name="order_id")
 	private Order order;
