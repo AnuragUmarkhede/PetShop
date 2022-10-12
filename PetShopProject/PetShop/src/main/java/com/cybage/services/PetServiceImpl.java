@@ -36,10 +36,17 @@ public class PetServiceImpl implements IPetService {
 	public List<Pet> getAllPets() {
 		return petRepository.findAll();
 	}
+	
+	@Override
+	public Pet findByPetId(int petId) {
+		return petRepository.findById(petId).orElseThrow(()-> new PetNotFoundException("Pet does not exist for id "+petId));
+		
+	}
 
 	@Override
 	public Pet findByPetName(String petName) {
 		return petRepository.findByPetName(petName);
 	}
 
+	
 }

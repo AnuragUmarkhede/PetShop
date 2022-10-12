@@ -33,4 +33,9 @@ public class FavouritePet
 	@OneToOne
 	@JoinColumn(name="pet_id")
 	private Pet pet;
+	
+	@ManyToOne
+	@JoinColumn(name="cart_id")
+	@JsonBackReference
+	private Cart cart;
 }

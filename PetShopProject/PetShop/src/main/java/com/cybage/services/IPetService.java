@@ -18,6 +18,9 @@ public interface IPetService
 	//Method to get all pets details
 	public List<Pet> getAllPets();
 	
+	//Method to find pet by id
+	public Pet findByPetId(int petId);
+	
 	//Method to find pet by name
 	public Pet findByPetName(String petName);
 	

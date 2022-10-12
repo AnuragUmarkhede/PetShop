@@ -26,7 +26,7 @@ public class FavouritePetFood
 	private int favouriteFoodId;
 	
 	@ManyToOne
-	@JoinColumn(name="user_id")
+	@JoinColumn(name="user_email")
 	@JsonBackReference
 	private User user;
 	

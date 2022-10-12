@@ -34,7 +34,7 @@ public class Order
 	private List<PetAccessories> petAccessories;
 	
 	@OneToOne
-	@JoinColumn(name="user_id")
+	@JoinColumn(name="user_email")
 	private User user;
 	
 	@OneToMany(mappedBy = "order",cascade = CascadeType.ALL)

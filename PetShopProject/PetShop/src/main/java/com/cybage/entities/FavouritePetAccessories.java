@@ -26,7 +26,7 @@ public class FavouritePetAccessories
 	private int favouriteItemId;
 	
 	@ManyToOne
-	@JoinColumn(name="user_id")
+	@JoinColumn(name="user_email")
 	@JsonBackReference
 	private User user;
 	
@@ -36,5 +36,6 @@ public class FavouritePetAccessories
 	
 	@ManyToOne
 	@JoinColumn(name="cart_id")
+	@JsonBackReference
 	private Cart cart;
 }

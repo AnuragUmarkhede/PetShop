@@ -42,6 +42,10 @@ public class Cart
 	
 	@OneToMany(mappedBy = "cart",cascade = CascadeType.ALL)
 	@JsonManagedReference
+	private List<FavouritePet> favouritePet;
+	
+	@OneToMany(mappedBy = "cart",cascade = CascadeType.ALL)
+	@JsonManagedReference
 	private List<FavouritePetFood> favouritePetFoods;
 	
 	@OneToMany(mappedBy = "cart",cascade = CascadeType.ALL)
@@ -49,7 +53,7 @@ public class Cart
 	private List<FavouritePetAccessories> favouritePetAccessories;
 	
 	@OneToOne
-	@JoinColumn(name="user_id")
+	@JoinColumn(name="user_email")
 	private User user;
  	
 }
