@@ -7,10 +7,12 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import lombok.AllArgsConstructor;
@@ -55,5 +57,10 @@ public class Cart
 	@OneToOne
 	@JoinColumn(name="user_email")
 	private User user;
+	
+	@ManyToOne
+	@JoinColumn(name="order_id")
+	@JsonBackReference
+	private Order order;
  	
 }

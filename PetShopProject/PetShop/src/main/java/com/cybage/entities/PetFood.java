@@ -1,9 +1,11 @@
 package com.cybage.entities;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import lombok.AllArgsConstructor;
@@ -33,4 +35,7 @@ public class PetFood
 	@ManyToOne
 	@JoinColumn(name="order_id")
 	private Order order;
+	
+	@OneToOne(mappedBy = "petFood",cascade = CascadeType.ALL)
+	private FavouritePetFood favouritePetFood;
 }

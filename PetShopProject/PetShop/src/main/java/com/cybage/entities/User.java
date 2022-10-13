@@ -4,6 +4,8 @@ import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -27,7 +29,11 @@ public class User
 	private String userLastName;
 	private String userPassword;
 	private String userContact;
+	
+	@Enumerated(EnumType.STRING)
 	private UserRole userRole;
+	
+	@Enumerated(EnumType.STRING)
 	private Gender gender;
 	private String userAddress;
 	
