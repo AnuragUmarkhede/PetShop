@@ -1,12 +1,12 @@
 package com.cybage.entities;
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -30,12 +30,11 @@ public class PetFood
 	
 	@ManyToOne
 	@JoinColumn(name="cart_id")
+	@JsonBackReference(value = "cartJson")
 	private Cart cart;
 	
 	@ManyToOne
-	@JoinColumn(name="order_id")
-	private Order order;
-	
-	@OneToOne(mappedBy = "petFood",cascade = CascadeType.ALL)
+	@JoinColumn(name = "favourite_food_id")
+	@JsonBackReference(value = "favPetFoodJson")
 	private FavouritePetFood favouritePetFood;
 }

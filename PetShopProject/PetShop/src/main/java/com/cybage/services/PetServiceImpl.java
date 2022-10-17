@@ -22,14 +22,13 @@ public class PetServiceImpl implements IPetService {
 
 	@Override
 	public Pet updatePet(int petId, Pet pet) {
-		Pet petToBeUpdated = petRepository.findById(petId).orElseThrow(()-> new PetNotFoundException("Pet does not exist for id "+petId));
-		return petRepository.save(petToBeUpdated);
+		petRepository.findById(petId).orElseThrow(()-> new PetNotFoundException("Pet does not exist for id "+petId));
+		return petRepository.save(pet);
 	}
 
 	@Override
 	public void deletePet(int petId) {
-		Pet petToBeDeleted = petRepository.findById(petId).orElseThrow(()-> new PetNotFoundException("Pet does not exist for id "+petId));
-		petRepository.delete(petToBeDeleted);
+		petRepository.deleteById(petId);
 	}
 
 	@Override

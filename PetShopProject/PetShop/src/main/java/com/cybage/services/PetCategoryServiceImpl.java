@@ -22,14 +22,13 @@ public class PetCategoryServiceImpl implements IPetCategoryService
 
 	@Override
 	public PetCategory updatePetCategory(int categoryId, PetCategory petCategory) {
-		PetCategory petCategoryToBeUpdated = petCategoryRepository.findById(categoryId).orElseThrow(()-> new PetCateogryNotFoundException("Pet category does not exist for category id "+categoryId));
-		return petCategoryRepository.save(petCategoryToBeUpdated);
+		petCategoryRepository.findById(categoryId).orElseThrow(()-> new PetCateogryNotFoundException("Pet category does not exist for category id "+categoryId));
+		return petCategoryRepository.save(petCategory);
 	}
 
 	@Override
 	public void deletePetCategory(int categoryId) {
-		PetCategory petCategoryToBeDeleted = petCategoryRepository.findById(categoryId).orElseThrow(()-> new PetCateogryNotFoundException("Pet category does not exist for category id "+categoryId));
-		petCategoryRepository.delete(petCategoryToBeDeleted);
+		petCategoryRepository.deleteById(categoryId);
 	}
 
 	@Override

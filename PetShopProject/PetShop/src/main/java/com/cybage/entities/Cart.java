@@ -7,12 +7,11 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import lombok.AllArgsConstructor;
@@ -31,36 +30,40 @@ public class Cart
 	private int cartId;
 	
 	@OneToMany(mappedBy = "cart",cascade = CascadeType.ALL)
-	@JsonManagedReference
+	@JsonManagedReference(value = "cartJson")
+	@JsonIgnore
 	private List<Pet> pets;
 	
 	@OneToMany(mappedBy = "cart",cascade = CascadeType.ALL)
-	@JsonManagedReference
+	@JsonManagedReference(value = "cartJson")
+	@JsonIgnore
 	private List<PetFood> petFoods;
 	
 	@OneToMany(mappedBy = "cart",cascade = CascadeType.ALL)
-	@JsonManagedReference
+	@JsonManagedReference(value = "cartJson")
+	@JsonIgnore
 	private List<PetAccessories> petAccessories;
 	
 	@OneToMany(mappedBy = "cart",cascade = CascadeType.ALL)
-	@JsonManagedReference
+	@JsonManagedReference(value = "cartJson")
+	@JsonIgnore
 	private List<FavouritePet> favouritePet;
 	
 	@OneToMany(mappedBy = "cart",cascade = CascadeType.ALL)
-	@JsonManagedReference
+	@JsonManagedReference(value = "cartJson")
+	@JsonIgnore
 	private List<FavouritePetFood> favouritePetFoods;
 	
 	@OneToMany(mappedBy = "cart",cascade = CascadeType.ALL)
-	@JsonManagedReference
+	@JsonManagedReference(value = "cartJson")
+	@JsonIgnore
 	private List<FavouritePetAccessories> favouritePetAccessories;
 	
 	@OneToOne
 	@JoinColumn(name="user_email")
 	private User user;
 	
-	@ManyToOne
-	@JoinColumn(name="order_id")
-	@JsonBackReference
+	@OneToOne(mappedBy = "cart",cascade = CascadeType.ALL)
 	private Order order;
  	
 }

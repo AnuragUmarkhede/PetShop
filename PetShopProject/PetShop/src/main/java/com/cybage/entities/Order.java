@@ -1,15 +1,11 @@
 package com.cybage.entities;
 
-import java.util.List;
-
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
-
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -26,20 +22,11 @@ public class Order
 	@GeneratedValue
 	private int orderId;
 	private double orderPrice;
+	private String userAddress;
+	private int pinCode;
 	
-	@OneToMany(mappedBy = "order",cascade = CascadeType.ALL)
-	@JsonManagedReference
-	private List<PetFood> petFoods;
+	@OneToOne
+	@JoinColumn(name="cart_id")
+	private Cart cart;
 	
-	@OneToMany(mappedBy = "order",cascade = CascadeType.ALL)
-	@JsonManagedReference
-	private List<PetAccessories> petAccessories;
-	
-	@OneToMany(mappedBy = "order",cascade = CascadeType.ALL)
-	@JsonManagedReference
-	private List<Cart> cartItems;
-	
-	@OneToMany(mappedBy = "order",cascade = CascadeType.ALL)
-	@JsonManagedReference
-	private List<Pet> pets;
 }
