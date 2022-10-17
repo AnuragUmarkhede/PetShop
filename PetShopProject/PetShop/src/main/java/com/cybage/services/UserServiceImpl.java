@@ -22,8 +22,8 @@ public class UserServiceImpl implements IUserService {
 
 	@Override
 	public User updateUser(String userEmail, User user) {
-		User userToBeUpdated = userRepository.findById(userEmail).orElseThrow(()-> new UserNotFoundException("User does not exist for email id "+userEmail));
-		return userRepository.save(userToBeUpdated);
+		userRepository.findById(userEmail).orElseThrow(()-> new UserNotFoundException("User does not exist for email id "+userEmail));
+		return userRepository.save(user);
 		
 	}
 	
