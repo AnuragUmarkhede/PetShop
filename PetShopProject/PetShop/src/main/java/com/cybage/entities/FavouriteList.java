@@ -5,10 +5,12 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
@@ -24,24 +26,25 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table
-public class FavouritePet 
+public class FavouriteList 
 {
 	@Id
-	@GeneratedValue
-	private int favouritePetId;
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private int id;
 	
-	@ManyToOne
-	@JoinColumn(name="user_email")
-	@JsonBackReference(value = "userJson")
-	private User user;
+	private String sessionToken;
 	
-	@OneToMany(mappedBy = "favouritePet",cascade = CascadeType.ALL)
-	@JsonManagedReference(value = "favPetJson")
+	@OneToMany(mappedBy = "favouriteList",cascade = CascadeType.ALL)
+	@JsonManagedReference(value = "favouriteListJson")
 	@JsonIgnore
-	private List<Pet> pets;
+	private List<FavouriteItem> favouriteItems;
 	
 	@ManyToOne
-	@JoinColumn(name="cart_id")
+	@JoinColumn(name = "cart_id")
 	@JsonBackReference(value = "cartJson")
 	private Cart cart;
+	
+	@OneToOne
+	@JoinColumn(name = "user_id")
+	private User user;
 }

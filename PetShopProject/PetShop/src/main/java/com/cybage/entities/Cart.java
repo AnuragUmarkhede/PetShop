@@ -47,17 +47,7 @@ public class Cart
 	@OneToMany(mappedBy = "cart",cascade = CascadeType.ALL)
 	@JsonManagedReference(value = "cartJson")
 	@JsonIgnore
-	private List<FavouritePet> favouritePet;
-	
-	@OneToMany(mappedBy = "cart",cascade = CascadeType.ALL)
-	@JsonManagedReference(value = "cartJson")
-	@JsonIgnore
-	private List<FavouritePetFood> favouritePetFoods;
-	
-	@OneToMany(mappedBy = "cart",cascade = CascadeType.ALL)
-	@JsonManagedReference(value = "cartJson")
-	@JsonIgnore
-	private List<FavouritePetAccessories> favouritePetAccessories;
+	private List<FavouriteList> favouriteList;
 	
 	@OneToOne
 	@JoinColumn(name="user_email")

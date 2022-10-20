@@ -1,5 +1,8 @@
 package com.cybage.entities;
 
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -7,9 +10,12 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -20,7 +26,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table
-public class Pet 
+public class Pet
 {
 	@Id
 	@GeneratedValue
@@ -45,8 +51,12 @@ public class Pet
 	private Cart cart;
  
 	@ManyToOne
-	@JoinColumn(name="favourite_pet_id")
-	@JsonBackReference(value = "favPetJson")
-	private FavouritePet favouritePet;
-	
+	@JoinColumn(name="id")
+	@JsonBackReference(value = "favouriteListJson")
+	private FavouriteList favouriteList;
+
+	@OneToMany(mappedBy = "pet",cascade = CascadeType.ALL)
+	@JsonManagedReference(value = "petJson")
+	@JsonIgnore
+	private List<FavouriteItem> favouriteItems;
 }

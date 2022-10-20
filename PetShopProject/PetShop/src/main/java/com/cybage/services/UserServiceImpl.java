@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.cybage.daos.UserRepository;
 import com.cybage.entities.User;
+import com.cybage.entities.UserRole;
 import com.cybage.exceptions.UserNotFoundException;
 
 @Service
@@ -17,7 +18,12 @@ public class UserServiceImpl implements IUserService {
 	
 	@Override
 	public User addUser(User user) {
-		return userRepository.save(user);
+		if(user.getUserRole().equals(UserRole.CUSTOMER))
+		{
+			return userRepository.save(user);
+		}
+		else
+			return null;
 	}
 
 	@Override
