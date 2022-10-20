@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.cybage.entities.User;
 
+
 public interface IUserService 
 {
 	//Method to add user details
@@ -17,5 +18,10 @@ public interface IUserService
 	
 	//Method to get all users details
 	public List<User> getAllUser();
+
+	public User fetchUserByEmailAndPassword(String email, String password);
+	
+	public User login(User user);
+	
 	
 }

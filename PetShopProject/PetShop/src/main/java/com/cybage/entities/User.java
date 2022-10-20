@@ -24,15 +24,9 @@ public class User
 	private String userFirstName;
 	private String userLastName;
 	private String userPassword;
-	private String userContact;
 	
 	@Enumerated(EnumType.STRING)
 	private UserRole userRole;
-	
-	@Enumerated(EnumType.STRING)
-	private Gender gender;
-	
-	private String userAddress;
 	
 	@OneToOne(mappedBy = "user",cascade = CascadeType.ALL)
 	private FavouriteList favouriteList;
