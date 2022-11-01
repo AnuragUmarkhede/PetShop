@@ -10,6 +10,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Positive;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -29,10 +31,15 @@ public class PetAccessories
 	@Id
 	@GeneratedValue
 	private int itemId;
+	@NotBlank(message = "Pet accessory name should not be null!")
 	private String itemName;
+	@NotBlank(message = "Pet accessory category name should not be null!")
 	private String itemCategory;
+	@NotBlank(message = "Pet accessory price should not be null!")
+	@Positive(message = "Pet accessory price should be greated than 0")
 	private double itemPrice;
 	private String itemImage;
+	@Positive(message = "Pet accessory quantity should be greated than 0")
 	private int itemQuantity;
 	
 	@ManyToOne

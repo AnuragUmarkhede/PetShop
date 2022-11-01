@@ -8,6 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
@@ -26,6 +27,7 @@ public class PetCategory
 	@Id
 	@GeneratedValue
 	private int categoryId;
+	@NotBlank(message = "Pet category should not be null!")
 	private String categoryName;
 	private String categoryImage;
 	
