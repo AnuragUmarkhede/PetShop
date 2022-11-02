@@ -23,6 +23,6 @@ public interface IPetFoodService {
 	public PetFood findByFoodName(String foodName);
 	
 	//Method to find pet food by id
-	public PetFood findById(int foodId);
+	public PetFood findByFoodId(int foodId);
 
 }

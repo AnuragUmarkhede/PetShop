@@ -42,11 +42,7 @@ public class PetFoodServiceImpl implements IPetFoodService {
 	}
 
 	@Override
-	public PetFood findById(int foodId) {
+	public PetFood findByFoodId(int foodId) {
 		return petFoodRepository.findByFoodId(foodId);
 	}
-
-	
-
-	
 }

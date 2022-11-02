@@ -12,8 +12,10 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Positive;
+import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -33,15 +35,19 @@ public class Pet
 	@Id
 	@GeneratedValue
 	private int petId;
-	@NotBlank(message = "Pet name should not be null!")
+	
+	@NotBlank(message = "Pet name cant be empty!")
 	private String petName;
 	
 	@Enumerated(EnumType.STRING)
 	private Gender gender;
 	
-	@NotBlank(message = "Pet price should not be null!")
-	@Positive(message = "Pet price should be greated than 0")
+	@Min(value = 1000)
+    @Max(value = 5000)
 	private double petPrice;
+	
+	@Size(max = 100)
+	@NotBlank(message = "Pet description cant be empty!")
 	private String petDescription;
 	private String petImage;
 	

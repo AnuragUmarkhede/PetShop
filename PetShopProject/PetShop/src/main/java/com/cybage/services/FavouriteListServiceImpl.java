@@ -35,7 +35,7 @@ public class FavouriteListServiceImpl implements IFavouriteListService {
 		FavouriteList favouriteList = new FavouriteList();
 		FavouriteItem favouriteItem = new FavouriteItem();
 		favouriteItem.setPet(petServiceImpl.findByPetId(id));
-		favouriteItem.setPetFood(petFoodServiceImpl.findById(id));
+		favouriteItem.setPetFood(petFoodServiceImpl.findByFoodId(id));
 		favouriteItem.setPetAccessories(petAccessoriesServiceImpl.findByItemId(id));
 		favouriteList.getFavouriteItems().add(favouriteItem);
 		favouriteList.setSessionToken(sessionToken);

@@ -20,7 +20,7 @@ import com.cybage.services.PetAccessoriesServiceImpl;
 
 @RestController
 @CrossOrigin
-@RequestMapping("/petaccessories")
+@RequestMapping("/petAccessories")
 public class PetAccessoriesController {
 	
 	@Autowired
@@ -55,6 +55,12 @@ public class PetAccessoriesController {
 	public ResponseEntity<PetAccessories> findByItemName(@PathVariable String itemName)
 	{
 		return new ResponseEntity<PetAccessories>(petAccessoriesServiceImpl.findByItemName(itemName), HttpStatus.OK);
+	}
+	
+	@GetMapping("/findByItemId/{itemId}")
+	public ResponseEntity<PetAccessories> findByItemId(@PathVariable int itemId)
+	{
+		return new ResponseEntity<PetAccessories>(petAccessoriesServiceImpl.findByItemId(itemId), HttpStatus.OK);
 	}
 
 }

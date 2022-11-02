@@ -19,7 +19,7 @@ import com.cybage.services.PetFoodServiceImpl;
 
 @RestController
 @CrossOrigin
-@RequestMapping("/petfood")
+@RequestMapping("/petFood")
 public class PetFoodController {
 
 	@Autowired
@@ -44,6 +44,18 @@ public class PetFoodController {
 	@GetMapping("/getAllFood")
 	public ResponseEntity<List<PetFood>> getAllFood() {
 		return new ResponseEntity<List<PetFood>>(petFoodServiceImpl.getAllFood(), HttpStatus.OK);
+	}
+	
+	@GetMapping("/findByFoodName/{foodName}")
+	public ResponseEntity<PetFood> findByFoodName(@PathVariable String foodName)
+	{
+		return new ResponseEntity<PetFood>(petFoodServiceImpl.findByFoodName(foodName), HttpStatus.OK);
+	}
+	
+	@GetMapping("/findByFoodId/{foodId}")
+	public ResponseEntity<PetFood> findByFoodId(@PathVariable int foodId)
+	{
+		return new ResponseEntity<PetFood>(petFoodServiceImpl.findByFoodId(foodId), HttpStatus.OK);
 	}
 
 }

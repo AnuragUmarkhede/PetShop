@@ -30,12 +30,12 @@ public class PetFood
 	@Id
 	@GeneratedValue
 	private int foodId;
-	@NotBlank(message = "Food name should not be null!")
+	@NotBlank(message = "Food name cant be empty!")
 	private String foodName;
-	@NotBlank(message = "Food category should not be null!")
+	@NotBlank(message = "Food category cant be empty!")
 	private String foodCategory;
-	@NotBlank(message = "Food price should not be null!")
-	@Positive(message = "Food price price should be greated than 0")
+	@NotBlank(message = "Food price cant be empty!")
+	@Positive(message = "Food price should be greated than 0")
 	private double foodPrice;
 	private String foodImage;
 	@Positive(message = "Food quantity should be greated than 0")

@@ -27,7 +27,9 @@ public class User
 	@Email(regexp = "[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,3}",
     flags = Pattern.Flag.CASE_INSENSITIVE)
 	private String userEmail;
+	@NotBlank(message = "First name cant be empty!")
 	private String userFirstName;
+	@NotBlank(message = "Last name cant be empty!")
 	private String userLastName;
 	@NotBlank(message = "Password should not be null!")
 	@Size(min = 4,max = 15, message = "Password should be between 4 to 15 characters!")
