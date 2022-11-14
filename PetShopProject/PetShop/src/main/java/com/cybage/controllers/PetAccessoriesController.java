@@ -71,5 +71,11 @@ public class PetAccessoriesController {
 		petAccessoriesServiceImpl.savePetAccessoriesToDB(file, itemName, itemCategory, itemPrice, itemQuantity);
 		return new ResponseEntity<String>("Pet accessories details added!",HttpStatus.CREATED);
 	}
+	
+	@GetMapping("/findByItemCategory/{itemCategory}")
+	public ResponseEntity<List<PetAccessories>> findByItemCategory(@PathVariable String itemCategory)
+	{
+		return new ResponseEntity<List<PetAccessories>>(petAccessoriesServiceImpl.findByItemCategory(itemCategory), HttpStatus.OK);
+	}
 
 }

@@ -75,7 +75,7 @@ public class PetAccessoriesServiceImpl implements IPetAccessoriesService{
 
 	@Override
 	public List<PetAccessories> findByItemCategory(String itemCategory) {
-		return petAccessoriesRepository.findAll();
+		return petAccessoriesRepository.findByItemCategory(itemCategory);
 	}
 
 	

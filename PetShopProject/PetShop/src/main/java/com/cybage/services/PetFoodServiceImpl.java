@@ -75,6 +75,6 @@ public class PetFoodServiceImpl implements IPetFoodService {
 
 	@Override
 	public List<PetFood> findByFoodCategory(String foodCategory) {
-		return petFoodRepository.findAll();
+		return petFoodRepository.findByFoodCategory(foodCategory);
 	}
 }
