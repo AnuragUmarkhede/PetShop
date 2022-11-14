@@ -25,5 +25,4 @@ public class CartServiceImpl implements ICartService {
 		Cart cartItemToBeDeleted = cartRepository.findById(cartId).orElseThrow(()-> new CartNotFoundException("Cart item does not exist for id "+cartId));
 		cartRepository.delete(cartItemToBeDeleted);
 	}
-
 }

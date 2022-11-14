@@ -13,7 +13,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
+
 import com.cybage.entities.PetFood;
 import com.cybage.services.PetFoodServiceImpl;
 
@@ -56,6 +59,19 @@ public class PetFoodController {
 	public ResponseEntity<PetFood> findByFoodId(@PathVariable int foodId)
 	{
 		return new ResponseEntity<PetFood>(petFoodServiceImpl.findByFoodId(foodId), HttpStatus.OK);
+	}
+	
+	@PostMapping("/addPetFoodToDB")
+	public ResponseEntity<String> savePetFood(@RequestParam("file") MultipartFile file,@RequestParam("foodName") String foodName,@RequestParam("foodCategory") String foodCategory,@RequestParam("foodPrice") double foodPrice,@RequestParam("foodQuantity") int foodQuantity)
+	{
+		petFoodServiceImpl.savePetFoodToDB(file, foodName, foodCategory, foodPrice, foodQuantity);
+		return new ResponseEntity<String>("Pet food details added!",HttpStatus.CREATED);
+	}
+	
+	@GetMapping("/findByFoodCategory/{foodCategory}")
+	public ResponseEntity<List<PetFood>> findByFoodCategory(@PathVariable String foodCategory)
+	{
+		return new ResponseEntity<List<PetFood>>(petFoodServiceImpl.findByFoodCategory(foodCategory), HttpStatus.OK);
 	}
 
 }

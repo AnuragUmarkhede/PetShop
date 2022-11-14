@@ -13,7 +13,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.cybage.entities.PetCategory;
 import com.cybage.services.PetCategoryServiceImpl;
@@ -65,4 +67,10 @@ public class PetCategoryController
 		return new ResponseEntity<PetCategory>(petCategoryServiceImpl.findByCategoryName(categoryName), HttpStatus.OK);
 	}
 	
+	@PostMapping("/savePetCategoryToDB")
+	public ResponseEntity<String> savePetCategoryToDB(@RequestParam("file") MultipartFile file,@RequestParam("categoryName") String categoryName)
+	{
+		petCategoryServiceImpl.savePetCategoryToDB(file, categoryName);
+		return new ResponseEntity<String>("Pet category details added!", HttpStatus.OK);
+	}
 }

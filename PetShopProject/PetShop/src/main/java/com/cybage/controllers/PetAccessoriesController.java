@@ -13,7 +13,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.cybage.entities.PetAccessories;
 import com.cybage.services.PetAccessoriesServiceImpl;
@@ -61,6 +63,13 @@ public class PetAccessoriesController {
 	public ResponseEntity<PetAccessories> findByItemId(@PathVariable int itemId)
 	{
 		return new ResponseEntity<PetAccessories>(petAccessoriesServiceImpl.findByItemId(itemId), HttpStatus.OK);
+	}
+	
+	@PostMapping("/addPetAccessoriesToDB")
+	public ResponseEntity<String> savePetFood(@RequestParam("file") MultipartFile file,@RequestParam("itemName") String itemName,@RequestParam("itemCategory") String itemCategory,@RequestParam("itemPrice") double itemPrice,@RequestParam("itemQuantity") int itemQuantity)
+	{
+		petAccessoriesServiceImpl.savePetAccessoriesToDB(file, itemName, itemCategory, itemPrice, itemQuantity);
+		return new ResponseEntity<String>("Pet accessories details added!",HttpStatus.CREATED);
 	}
 
 }

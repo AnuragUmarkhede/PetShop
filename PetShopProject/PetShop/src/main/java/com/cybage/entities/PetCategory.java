@@ -36,3 +36,4 @@ public class PetCategory
 	@JsonIgnore
 	private List<Pet> pets;
 }
+

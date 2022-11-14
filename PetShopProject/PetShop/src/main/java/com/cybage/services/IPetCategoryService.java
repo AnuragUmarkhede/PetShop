@@ -2,6 +2,8 @@ package com.cybage.services;
 
 import java.util.List;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import com.cybage.entities.PetCategory;
 
 public interface IPetCategoryService 
@@ -23,5 +25,7 @@ public interface IPetCategoryService
 		
 	//Method to find pet category by name
 	public PetCategory findByCategoryName(String categoryName);
+	
+	public void savePetCategoryToDB(MultipartFile multipartFile,String categoryName);
 	
 }

@@ -13,8 +13,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
+import com.cybage.entities.Gender;
 import com.cybage.entities.Pet;
 import com.cybage.services.PetServiceImpl;
 
@@ -63,5 +66,10 @@ public class PetController
 		return new ResponseEntity<Pet>(petServiceImpl.findByPetName(petName), HttpStatus.OK);
 	}
 	
-	
+	@PostMapping("/addPetToDB")
+	public ResponseEntity<String> savePet(@RequestParam("file") MultipartFile file,@RequestParam("petName") String petName,@RequestParam("petDescription") String petDescription,@RequestParam("petPrice") double petPrice,@RequestParam("petGender") Gender gender,@RequestParam("petCategoryId") int petCategoryId)
+	{
+		petServiceImpl.savePetToDB(file, petName, petDescription, petPrice, gender, petCategoryId);
+		return new ResponseEntity<String>("Pet details added!",HttpStatus.CREATED);
+	}
 }

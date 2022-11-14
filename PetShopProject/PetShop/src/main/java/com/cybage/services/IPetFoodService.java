@@ -2,6 +2,8 @@ package com.cybage.services;
 
 import java.util.List;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import com.cybage.entities.PetFood;
 
 public interface IPetFoodService {
@@ -22,7 +24,12 @@ public interface IPetFoodService {
 	//Method to find pet food by name
 	public PetFood findByFoodName(String foodName);
 	
+	//Method to find pet food by category name
+	public List<PetFood> findByFoodCategory(String foodCategory);
+	
 	//Method to find pet food by id
 	public PetFood findByFoodId(int foodId);
+	
+	public void savePetFoodToDB(MultipartFile multipartFile,String foodName,String foodCategory,double foodPrice,int foodQuantity);
 
 }

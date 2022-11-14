@@ -1,9 +1,13 @@
 package com.cybage.services;
 
+import java.io.IOException;
+import java.util.Base64;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.cybage.daos.PetCategoryRepository;
 import com.cybage.entities.PetCategory;
@@ -44,6 +48,25 @@ public class PetCategoryServiceImpl implements IPetCategoryService
 	@Override
 	public PetCategory findByCategoryName(String categoryName) {
 		return petCategoryRepository.findByCategoryName(categoryName);
+	}
+
+	@Override
+	public void savePetCategoryToDB(MultipartFile file, String categoryName) {
+		
+		PetCategory petCategory = new PetCategory();
+		String fileName=StringUtils.cleanPath(file.getOriginalFilename());
+		if(fileName.contains(".."))
+		{
+			System.out.println("not a valid file");
+		}
+		try {
+			petCategory.setCategoryImage(Base64.getEncoder().encodeToString(file.getBytes()));
+		} catch (IOException e) {
+			
+			e.printStackTrace();
+		}
+		petCategory.setCategoryName(categoryName);
+		petCategoryRepository.save(petCategory);
 	}
 
 }

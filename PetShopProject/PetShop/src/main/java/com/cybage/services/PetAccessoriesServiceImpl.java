@@ -1,9 +1,13 @@
 package com.cybage.services;
 
+import java.io.IOException;
+import java.util.Base64;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.cybage.daos.PetAccessoriesRepository;
 import com.cybage.entities.PetAccessories;
@@ -44,6 +48,34 @@ public class PetAccessoriesServiceImpl implements IPetAccessoriesService{
 	@Override
 	public PetAccessories findByItemId(int itemId) {
 		return petAccessoriesRepository.findByItemId(itemId);
+	}
+
+	@Override
+	public void savePetAccessoriesToDB(MultipartFile file, String itemName, String itemCategory,
+			double itemPrice, int itemQuantity) {
+		
+		PetAccessories petAccessories = new PetAccessories();
+		String fileName=StringUtils.cleanPath(file.getOriginalFilename());
+		if(fileName.contains(".."))
+		{
+			System.out.println("not a valid file");
+		}
+		try {
+			petAccessories.setItemImage(Base64.getEncoder().encodeToString(file.getBytes()));
+		} catch (IOException e) {
+			
+			e.printStackTrace();
+		}
+		petAccessories.setItemName(itemName);
+		petAccessories.setItemCategory(itemCategory);
+		petAccessories.setItemPrice(itemPrice);
+		petAccessories.setItemQuantity(itemQuantity);
+		petAccessoriesRepository.save(petAccessories);
+	}
+
+	@Override
+	public List<PetAccessories> findByItemCategory(String itemCategory) {
+		return petAccessoriesRepository.findAll();
 	}
 
 	

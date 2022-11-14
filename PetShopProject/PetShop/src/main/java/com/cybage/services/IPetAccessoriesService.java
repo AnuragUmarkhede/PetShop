@@ -2,6 +2,8 @@ package com.cybage.services;
 
 import java.util.List;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import com.cybage.entities.PetAccessories;
 
 public interface IPetAccessoriesService {
@@ -23,4 +25,9 @@ public interface IPetAccessoriesService {
 
 	// Method to find pet Accessories by item id
 	public PetAccessories findByItemId(int itemId);
+	
+	// Method to find pet Accessories by item category
+	public List<PetAccessories> findByItemCategory(String itemCategory);
+	
+	public void savePetAccessoriesToDB(MultipartFile multipartFile,String itemName,String itemCategory,double itemPrice,int itemQuantity);
 }
