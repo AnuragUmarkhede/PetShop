@@ -1,6 +1,7 @@
 package com.cybage.services;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List;
 
@@ -10,8 +11,10 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.cybage.daos.PetRepository;
+import com.cybage.dtos.PetDto;
 import com.cybage.entities.Gender;
 import com.cybage.entities.Pet;
+import com.cybage.entities.PetCategory;
 import com.cybage.exceptions.PetNotFoundException;
 
 @Service
@@ -19,6 +22,9 @@ public class PetServiceImpl implements IPetService {
 
 	@Autowired
 	PetRepository petRepository;
+	
+	@Autowired
+	PetDto petDto;
 	
 	@Override
 	public Pet addPet(Pet pet) {
@@ -73,6 +79,29 @@ public class PetServiceImpl implements IPetService {
 		pet.getPetCategory().setCategoryId(petCategoryId);
 		
 		petRepository.save(pet);
+	}
+	
+	public PetDto addPet(PetDto petDto)
+	{
+		List<Pet> petsList = new ArrayList<>();
+		Pet pet = new Pet();
+		pet.setPetId(petDto.getPetId());
+		pet.setPetName(petDto.getPetName());
+		pet.setPetDescription(petDto.getPetDescription());
+		pet.setPetPrice(petDto.getPetPrice());
+		pet.setGender(petDto.getGender());
+		pet.setPetImage(petDto.getPetImage());
+		petsList.add(pet);
+		
+		PetCategory petCategory = new PetCategory();
+		
+		petCategory.setCategoryId(petDto.getCategoryId());
+		
+		pet.setPetCategory(petCategory);
+		petCategory.setPets(petsList);
+		
+		
+		return petDto.toPetDto(petRepository.save(pet));
 	}
 
 }

@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.cybage.dtos.PetDto;
 import com.cybage.entities.Gender;
 import com.cybage.entities.Pet;
 import com.cybage.services.PetServiceImpl;
@@ -29,10 +30,16 @@ public class PetController
 	@Autowired
 	PetServiceImpl petServiceImpl;
 	
+//	@PostMapping("/addPet")
+//	public ResponseEntity<Pet> addPet(@RequestBody Pet pet)
+//	{
+//		return new ResponseEntity<Pet>(petServiceImpl.addPet(pet), HttpStatus.CREATED);
+//	}
+	
 	@PostMapping("/addPet")
-	public ResponseEntity<Pet> addPet(@RequestBody Pet pet)
+	public ResponseEntity<PetDto> addPet(@RequestBody PetDto petDto)
 	{
-		return new ResponseEntity<Pet>(petServiceImpl.addPet(pet), HttpStatus.CREATED);
+		return new ResponseEntity<PetDto>(petServiceImpl.addPet(petDto), HttpStatus.CREATED);
 	}
 	
 	@PutMapping("/updatePet/{petId}")
