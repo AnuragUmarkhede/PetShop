@@ -35,7 +35,6 @@ public class PetAccessories
 	private String itemName;
 	@NotBlank(message = "Pet accessory category name should not be null!")
 	private String itemCategory;
-	@NotBlank(message = "Pet accessory price should not be null!")
 	@Positive(message = "Pet accessory price should be greated than 0")
 	private double itemPrice;
 	private String itemImage;

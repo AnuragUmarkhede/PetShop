@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -28,18 +27,23 @@ public class PetCategoryController
 	@Autowired
 	PetCategoryServiceImpl petCategoryServiceImpl;
 	
-	
 	@PostMapping("/addPetCategory")
-	public ResponseEntity<PetCategory> addPetCategory(@RequestBody PetCategory petCategory)
+	public ResponseEntity<String> addPetCategory(@RequestParam("file") MultipartFile file,@RequestParam("categoryName") String categoryName)
 	{
-		return new ResponseEntity<PetCategory>(petCategoryServiceImpl.addPetCategory(petCategory), HttpStatus.CREATED);
+		petCategoryServiceImpl.addPetCategory(file, categoryName);
+		return new ResponseEntity<String>("Pet category details added!", HttpStatus.OK);
 	}
 	
+//	@PutMapping("/updatePetCategory/{categoryId}")                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  
+//	public ResponseEntity<PetCategory> updatePetCategory(@PathVariable int categoryId, @RequestBody PetCategory petCategory)
+//	{
+//		return new ResponseEntity<PetCategory>(petCategoryServiceImpl.updatePetCategory(categoryId, petCategory), HttpStatus.OK);
+//	}
 	
 	@PutMapping("/updatePetCategory/{categoryId}")
-	public ResponseEntity<PetCategory> updatePetCategory(@PathVariable int categoryId, @RequestBody PetCategory petCategory)
+	public ResponseEntity<PetCategory> updatePetCategory(@PathVariable int categoryId, @RequestParam("file") MultipartFile file, @RequestParam("categoryName") String categoryName)
 	{
-		return new ResponseEntity<PetCategory>(petCategoryServiceImpl.updatePetCategory(categoryId, petCategory), HttpStatus.OK);
+		return new ResponseEntity<PetCategory>(petCategoryServiceImpl.updatePetCategory(file, categoryId, categoryName), HttpStatus.OK);
 	}
 	
 	@DeleteMapping("/deletePetCategory/{categoryId}")
@@ -67,10 +71,5 @@ public class PetCategoryController
 		return new ResponseEntity<PetCategory>(petCategoryServiceImpl.findByCategoryName(categoryName), HttpStatus.OK);
 	}
 	
-	@PostMapping("/savePetCategoryToDB")
-	public ResponseEntity<String> savePetCategoryToDB(@RequestParam("file") MultipartFile file,@RequestParam("categoryName") String categoryName)
-	{
-		petCategoryServiceImpl.savePetCategoryToDB(file, categoryName);
-		return new ResponseEntity<String>("Pet category details added!", HttpStatus.OK);
-	}
+	
 }

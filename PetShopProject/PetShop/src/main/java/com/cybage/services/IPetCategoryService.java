@@ -9,10 +9,12 @@ import com.cybage.entities.PetCategory;
 public interface IPetCategoryService 
 {
 	//Method to add pet category
-	public PetCategory addPetCategory(PetCategory petCategory);
+	public void addPetCategory(MultipartFile multipartFile,String categoryName);
 	
 	//Method to update pet category
-	public PetCategory updatePetCategory(int categoryId,PetCategory petCategory);
+//	public PetCategory updatePetCategory(int categoryId,PetCategory petCategory);
+	
+	public PetCategory updatePetCategory(MultipartFile multipartFile,int categoryId,String categoryName);
 	
 	//Method to delete pet category
 	public void deletePetCategory(int categoryId);
@@ -26,6 +28,6 @@ public interface IPetCategoryService
 	//Method to find pet category by name
 	public PetCategory findByCategoryName(String categoryName);
 	
-	public void savePetCategoryToDB(MultipartFile multipartFile,String categoryName);
+	
 	
 }

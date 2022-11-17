@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -29,15 +28,19 @@ public class PetAccessoriesController {
 	PetAccessoriesServiceImpl petAccessoriesServiceImpl;
 	
 	@PostMapping("/addPetAccessories")
-	public ResponseEntity<PetAccessories> addPetAccessories(@RequestBody PetAccessories petAccessories)
+	public ResponseEntity<String> addPetAccessories(@RequestParam("file") MultipartFile file,@RequestParam("itemName") String itemName,@RequestParam("itemCategory") String itemCategory,@RequestParam("itemPrice") double itemPrice,
+			@RequestParam("itemQuantity") int itemQuantity)	
 	{
-		return new ResponseEntity<PetAccessories>(petAccessoriesServiceImpl.addPetAccessories(petAccessories), HttpStatus.CREATED);
+		petAccessoriesServiceImpl.addPetAccessories(file, itemName, itemCategory, itemPrice, itemQuantity);
+		return new ResponseEntity<String>("Pet accessories details added successfully!", HttpStatus.CREATED);
 	}
 	
 	@PutMapping("/updatePetAccessories/{itemId}")
-	public ResponseEntity<PetAccessories> updatePetAccessories(@PathVariable int itemId, @RequestBody PetAccessories petAccessories)
+	public ResponseEntity<String> updatePetAccessories(@PathVariable int itemId,@RequestParam("file") MultipartFile file,@RequestParam("itemName") String itemName,@RequestParam("itemCategory") String itemCategory,@RequestParam("itemPrice") double itemPrice,
+			@RequestParam("itemQuantity") int itemQuantity)
 	{
-		return new ResponseEntity<PetAccessories>(petAccessoriesServiceImpl.updatePetAccessories(itemId, petAccessories), HttpStatus.OK);
+		petAccessoriesServiceImpl.updatePetAccessories(itemId, file, itemName, itemCategory, itemPrice, itemQuantity);
+		return new ResponseEntity<String>("Pet Accessories details updated successfully!", HttpStatus.OK);
 	}
 	
 	@DeleteMapping("/deletePetAccessories/{itemId}")
@@ -65,12 +68,6 @@ public class PetAccessoriesController {
 		return new ResponseEntity<PetAccessories>(petAccessoriesServiceImpl.findByItemId(itemId), HttpStatus.OK);
 	}
 	
-	@PostMapping("/addPetAccessoriesToDB")
-	public ResponseEntity<String> savePetFood(@RequestParam("file") MultipartFile file,@RequestParam("itemName") String itemName,@RequestParam("itemCategory") String itemCategory,@RequestParam("itemPrice") double itemPrice,@RequestParam("itemQuantity") int itemQuantity)
-	{
-		petAccessoriesServiceImpl.savePetAccessoriesToDB(file, itemName, itemCategory, itemPrice, itemQuantity);
-		return new ResponseEntity<String>("Pet accessories details added!",HttpStatus.CREATED);
-	}
 	
 	@GetMapping("/findByItemCategory/{itemCategory}")
 	public ResponseEntity<List<PetAccessories>> findByItemCategory(@PathVariable String itemCategory)

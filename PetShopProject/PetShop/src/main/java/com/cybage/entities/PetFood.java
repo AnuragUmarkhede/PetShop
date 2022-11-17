@@ -34,7 +34,6 @@ public class PetFood
 	private String foodName;
 	@NotBlank(message = "Food category cant be empty!")
 	private String foodCategory;
-	@NotBlank(message = "Food price cant be empty!")
 	@Positive(message = "Food price should be greated than 0")
 	private double foodPrice;
 	private String foodImage;

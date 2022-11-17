@@ -10,10 +10,10 @@ public interface IPetFoodService {
 	
 
 	//Method to add pet food details
-	public PetFood addPetFood(PetFood petfood);
+	public void addPetFood(MultipartFile file,String foodName,String foodCategory,double foodPrice, int foodQuantity);
 	
 	//Method to update pet food details
-	public PetFood updatePetFood(int foodId,PetFood petfood);
+	public void updatePetFood(int foodId,MultipartFile file,String foodName,String foodCategory,double foodPrice, int foodQuantity);
 	
 	//Method to delete pet food details
 	public void deletePetFood(int foodId);
@@ -29,7 +29,5 @@ public interface IPetFoodService {
 	
 	//Method to find pet food by id
 	public PetFood findByFoodId(int foodId);
-	
-	public void savePetFoodToDB(MultipartFile multipartFile,String foodName,String foodCategory,double foodPrice,int foodQuantity);
 
 }

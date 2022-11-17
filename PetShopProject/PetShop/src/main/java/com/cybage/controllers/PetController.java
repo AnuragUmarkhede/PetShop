@@ -11,14 +11,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.multipart.MultipartFile;
 
 import com.cybage.dtos.PetDto;
-import com.cybage.entities.Gender;
 import com.cybage.entities.Pet;
 import com.cybage.services.PetServiceImpl;
 
@@ -30,22 +26,17 @@ public class PetController
 	@Autowired
 	PetServiceImpl petServiceImpl;
 	
-//	@PostMapping("/addPet")
-//	public ResponseEntity<Pet> addPet(@RequestBody Pet pet)
-//	{
-//		return new ResponseEntity<Pet>(petServiceImpl.addPet(pet), HttpStatus.CREATED);
-//	}
-	
 	@PostMapping("/addPet")
-	public ResponseEntity<PetDto> addPet(@RequestBody PetDto petDto)
+	public ResponseEntity<PetDto> addPet(PetDto petDto)
 	{
 		return new ResponseEntity<PetDto>(petServiceImpl.addPet(petDto), HttpStatus.CREATED);
 	}
 	
 	@PutMapping("/updatePet/{petId}")
-	public ResponseEntity<Pet> updatePet(@PathVariable int petId, @RequestBody Pet pet)
+	public ResponseEntity<String> updatePet(@PathVariable int petId, PetDto petDto)
 	{
-		return new ResponseEntity<Pet>(petServiceImpl.updatePet(petId, pet), HttpStatus.OK);
+		petServiceImpl.updatePet(petId, petDto);
+		return new ResponseEntity<String>("Pet details updated successfully!", HttpStatus.OK);
 	}
 	
 	@DeleteMapping("/deletePet/{petId}")
@@ -73,10 +64,4 @@ public class PetController
 		return new ResponseEntity<Pet>(petServiceImpl.findByPetName(petName), HttpStatus.OK);
 	}
 	
-	@PostMapping("/addPetToDB")
-	public ResponseEntity<String> savePet(@RequestParam("file") MultipartFile file,@RequestParam("petName") String petName,@RequestParam("petDescription") String petDescription,@RequestParam("petPrice") double petPrice,@RequestParam("petGender") Gender gender,@RequestParam("petCategoryId") int petCategoryId)
-	{
-		petServiceImpl.savePetToDB(file, petName, petDescription, petPrice, gender, petCategoryId);
-		return new ResponseEntity<String>("Pet details added!",HttpStatus.CREATED);
-	}
 }

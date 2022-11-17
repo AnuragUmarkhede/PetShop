@@ -1,6 +1,7 @@
 package com.cybage.dtos;
 
 import org.springframework.stereotype.Component;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.cybage.entities.Gender;
 import com.cybage.entities.Pet;
@@ -21,7 +22,7 @@ public class PetDto
 	private Gender gender;
 	private double petPrice;
 	private String petDescription;
-	private String petImage;
+	private MultipartFile petImage;
 	
 	public PetDto toPetDto(Pet pet)
 	{
@@ -31,8 +32,8 @@ public class PetDto
 		petDto.setGender(pet.getGender());
 		petDto.setPetPrice(pet.getPetPrice());
 		petDto.setPetDescription(pet.getPetDescription());
-		petDto.setPetImage(pet.getPetImage());
 		petDto.setCategoryId(pet.getPetCategory().getCategoryId());
 		return petDto;
 	}
+
 }

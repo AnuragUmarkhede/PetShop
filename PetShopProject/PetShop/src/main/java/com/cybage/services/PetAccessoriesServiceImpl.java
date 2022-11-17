@@ -20,14 +20,54 @@ public class PetAccessoriesServiceImpl implements IPetAccessoriesService{
 	PetAccessoriesRepository petAccessoriesRepository; 
 	
 	@Override
-	public PetAccessories addPetAccessories(PetAccessories petAccessories) {
-		return petAccessoriesRepository.save(petAccessories);
+	public void addPetAccessories(MultipartFile file, String itemName, String itemCategory, double itemPrice,
+			int itemQuantity) {
+		
+		PetAccessories petAccessories = new PetAccessories();
+		String fileName=StringUtils.cleanPath(file.getOriginalFilename());
+		if(fileName.contains(".."))
+		{
+			System.out.println("not a valid file");
+		}
+		try {
+			petAccessories.setItemImage(Base64.getEncoder().encodeToString(file.getBytes()));
+		} catch (IOException e) {
+			
+			e.printStackTrace();
+		}
+		
+		petAccessories.setItemName(itemName);
+		petAccessories.setItemCategory(itemCategory);
+		petAccessories.setItemPrice(itemPrice);
+		petAccessories.setItemQuantity(itemQuantity);
+		
+		petAccessoriesRepository.save(petAccessories);
+		
 	}
-
+	
 	@Override
-	public PetAccessories updatePetAccessories(int itemId, PetAccessories petAccessories) {
-	petAccessoriesRepository.findById(itemId).orElseThrow(()-> new PetAccessoriesNotFoundException("Pet Accessories does not exist for id"+itemId));
-		return petAccessoriesRepository.save(petAccessories);
+	public void updatePetAccessories(int itemId, MultipartFile file, String itemName, String itemCategory,
+			double itemPrice, int itemQuantity) {
+		PetAccessories petAccessoriesToBeUpdated = petAccessoriesRepository.findById(itemId).orElseThrow(()-> new PetAccessoriesNotFoundException("Pet Accessories does not exist for id"+itemId));
+		
+		String fileName=StringUtils.cleanPath(file.getOriginalFilename());
+		if(fileName.contains(".."))
+		{
+			System.out.println("not a valid file");
+		}
+		try {
+			petAccessoriesToBeUpdated.setItemImage(Base64.getEncoder().encodeToString(file.getBytes()));
+		} catch (IOException e) {
+			
+			e.printStackTrace();
+		}
+		
+		petAccessoriesToBeUpdated.setItemName(itemName);
+		petAccessoriesToBeUpdated.setItemCategory(itemCategory);
+		petAccessoriesToBeUpdated.setItemPrice(itemPrice);
+		petAccessoriesToBeUpdated.setItemQuantity(itemQuantity);
+		
+		petAccessoriesRepository.save(petAccessoriesToBeUpdated);
 	}
 
 	@Override
@@ -51,32 +91,13 @@ public class PetAccessoriesServiceImpl implements IPetAccessoriesService{
 	}
 
 	@Override
-	public void savePetAccessoriesToDB(MultipartFile file, String itemName, String itemCategory,
-			double itemPrice, int itemQuantity) {
-		
-		PetAccessories petAccessories = new PetAccessories();
-		String fileName=StringUtils.cleanPath(file.getOriginalFilename());
-		if(fileName.contains(".."))
-		{
-			System.out.println("not a valid file");
-		}
-		try {
-			petAccessories.setItemImage(Base64.getEncoder().encodeToString(file.getBytes()));
-		} catch (IOException e) {
-			
-			e.printStackTrace();
-		}
-		petAccessories.setItemName(itemName);
-		petAccessories.setItemCategory(itemCategory);
-		petAccessories.setItemPrice(itemPrice);
-		petAccessories.setItemQuantity(itemQuantity);
-		petAccessoriesRepository.save(petAccessories);
-	}
-
-	@Override
 	public List<PetAccessories> findByItemCategory(String itemCategory) {
 		return petAccessoriesRepository.findByItemCategory(itemCategory);
 	}
+
+	
+
+	
 
 	
 

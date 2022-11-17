@@ -9,10 +9,10 @@ import com.cybage.entities.PetAccessories;
 public interface IPetAccessoriesService {
 
 	// Method to add pet Accessories details
-	public PetAccessories addPetAccessories(PetAccessories petAccessories);
+	public void addPetAccessories(MultipartFile file,String itemName,String itemCategory,double itemPrice, int itemQuantity);
 
 	// Method to update pet Accessories details
-	public PetAccessories updatePetAccessories(int itemId, PetAccessories petAccessories);
+	public void updatePetAccessories(int itemId, MultipartFile file,String itemName,String itemCategory,double itemPrice, int itemQuantity);
 
 	// Method to delete pet Accessories details
 	public void deletePetAccessories(int itemId);
@@ -29,5 +29,4 @@ public interface IPetAccessoriesService {
 	// Method to find pet Accessories by item category
 	public List<PetAccessories> findByItemCategory(String itemCategory);
 	
-	public void savePetAccessoriesToDB(MultipartFile multipartFile,String itemName,String itemCategory,double itemPrice,int itemQuantity);
 }
