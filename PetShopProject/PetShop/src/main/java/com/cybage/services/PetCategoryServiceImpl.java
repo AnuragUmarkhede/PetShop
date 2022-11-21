@@ -14,57 +14,46 @@ import com.cybage.entities.PetCategory;
 import com.cybage.exceptions.PetCateogryNotFoundException;
 
 @Service
-public class PetCategoryServiceImpl implements IPetCategoryService 
-{
+public class PetCategoryServiceImpl implements IPetCategoryService {
 	@Autowired
 	PetCategoryRepository petCategoryRepository;
-	
+
 	@Override
 	public void addPetCategory(MultipartFile file, String categoryName) {
-		
+
 		PetCategory petCategory = new PetCategory();
-		String fileName=StringUtils.cleanPath(file.getOriginalFilename());
-		if(fileName.contains(".."))
-		{
+		String fileName = StringUtils.cleanPath(file.getOriginalFilename());
+		if (fileName.contains("..")) {
 			System.out.println("not a valid file");
 		}
 		try {
 			petCategory.setCategoryImage(Base64.getEncoder().encodeToString(file.getBytes()));
 		} catch (IOException e) {
-			
+
 			e.printStackTrace();
 		}
 		petCategory.setCategoryName(categoryName);
 		petCategoryRepository.save(petCategory);
 	}
 
-//	@Override
-//	public PetCategory updatePetCategory(int categoryId, PetCategory petCategory) {
-//		petCategoryRepository.findById(categoryId).orElseThrow(()-> new PetCateogryNotFoundException("Pet category does not exist for category id "+categoryId));
-//		return petCategoryRepository.save(petCategory);
-//	}
-	
 	@Override
-	public PetCategory updatePetCategory(MultipartFile file, int categoryId,String categoryName) {
-		PetCategory petCategoryToBeUpdated = petCategoryRepository.findById(categoryId).orElseThrow(()-> new PetCateogryNotFoundException("Pet category does not exist for category id "+categoryId));
-		String fileName=StringUtils.cleanPath(file.getOriginalFilename());
-		if(fileName.contains(".."))
-		{
+	public PetCategory updatePetCategory(MultipartFile file, int categoryId, String categoryName) {
+		PetCategory petCategoryToBeUpdated = petCategoryRepository.findById(categoryId).orElseThrow(
+				() -> new PetCateogryNotFoundException("Pet category does not exist for category id " + categoryId));
+		String fileName = StringUtils.cleanPath(file.getOriginalFilename());
+		if (fileName.contains("..")) {
 			System.out.println("not a valid file");
 		}
 		try {
 			petCategoryToBeUpdated.setCategoryImage(Base64.getEncoder().encodeToString(file.getBytes()));
 		} catch (IOException e) {
-			
+
 			e.printStackTrace();
 		}
 		petCategoryToBeUpdated.setCategoryName(categoryName);
 		return petCategoryRepository.save(petCategoryToBeUpdated);
 	}
 
-	
-
-	
 	@Override
 	public void deletePetCategory(int categoryId) {
 		petCategoryRepository.deleteById(categoryId);
@@ -77,7 +66,8 @@ public class PetCategoryServiceImpl implements IPetCategoryService
 
 	@Override
 	public PetCategory findByCategoryId(int categoryId) {
-		return petCategoryRepository.findById(categoryId).orElseThrow(()-> new PetCateogryNotFoundException("Pet category does not exist for category id "+categoryId));
+		return petCategoryRepository.findById(categoryId).orElseThrow(
+				() -> new PetCateogryNotFoundException("Pet category does not exist for category id " + categoryId));
 	}
 
 	@Override

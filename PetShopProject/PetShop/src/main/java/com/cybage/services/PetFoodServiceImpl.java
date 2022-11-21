@@ -17,59 +17,56 @@ import com.cybage.exceptions.PetFoodNotFoundException;
 public class PetFoodServiceImpl implements IPetFoodService {
 
 	@Autowired
-	PetFoodRepository petFoodRepository;  
-
+	PetFoodRepository petFoodRepository;
 
 	@Override
 	public void addPetFood(MultipartFile file, String foodName, String foodCategory, double foodPrice,
 			int foodQuantity) {
-			
-			PetFood petFood = new PetFood();
-			String fileName=StringUtils.cleanPath(file.getOriginalFilename());
-			if(fileName.contains(".."))
-			{
-				System.out.println("not a valid file");
-			}
-			try {
-				petFood.setFoodImage(Base64.getEncoder().encodeToString(file.getBytes()));
-			} catch (IOException e) {
-				
-				e.printStackTrace();
-			}
-			petFood.setFoodName(foodName);
-			petFood.setFoodCategory(foodCategory);
-			petFood.setFoodPrice(foodPrice);
-			petFood.setFoodQuantity(foodQuantity);
-			
-			petFoodRepository.save(petFood);
-		
+
+		PetFood petFood = new PetFood();
+		String fileName = StringUtils.cleanPath(file.getOriginalFilename());
+		if (fileName.contains("..")) {
+			System.out.println("not a valid file");
+		}
+		try {
+			petFood.setFoodImage(Base64.getEncoder().encodeToString(file.getBytes()));
+		} catch (IOException e) {
+
+			e.printStackTrace();
+		}
+		petFood.setFoodName(foodName);
+		petFood.setFoodCategory(foodCategory);
+		petFood.setFoodPrice(foodPrice);
+		petFood.setFoodQuantity(foodQuantity);
+
+		petFoodRepository.save(petFood);
+
 	}
-	
+
 	@Override
-	public void updatePetFood(int foodId,MultipartFile file, String foodName, String foodCategory, double foodPrice,
+	public void updatePetFood(int foodId, MultipartFile file, String foodName, String foodCategory, double foodPrice,
 			int foodQuantity) {
-		PetFood petFoodToBeUpdated = petFoodRepository.findById(foodId).orElseThrow(()-> new PetFoodNotFoundException("Pet Food does not exist for id"+foodId));
-		String fileName=StringUtils.cleanPath(file.getOriginalFilename());
-		if(fileName.contains(".."))
-		{
+		PetFood petFoodToBeUpdated = petFoodRepository.findById(foodId)
+				.orElseThrow(() -> new PetFoodNotFoundException("Pet Food does not exist for id" + foodId));
+		String fileName = StringUtils.cleanPath(file.getOriginalFilename());
+		if (fileName.contains("..")) {
 			System.out.println("not a valid file");
 		}
 		try {
 			petFoodToBeUpdated.setFoodImage(Base64.getEncoder().encodeToString(file.getBytes()));
 		} catch (IOException e) {
-			
+
 			e.printStackTrace();
 		}
-		
+
 		petFoodToBeUpdated.setFoodName(foodName);
 		petFoodToBeUpdated.setFoodCategory(foodCategory);
 		petFoodToBeUpdated.setFoodPrice(foodPrice);
 		petFoodToBeUpdated.setFoodQuantity(foodQuantity);
 
 		petFoodRepository.save(petFoodToBeUpdated);
-		
+
 	}
-	
 
 	@Override
 	public void deletePetFood(int foodId) {

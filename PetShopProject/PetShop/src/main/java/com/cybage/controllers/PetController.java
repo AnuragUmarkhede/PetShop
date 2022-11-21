@@ -21,47 +21,40 @@ import com.cybage.services.PetServiceImpl;
 @RestController
 @CrossOrigin
 @RequestMapping("/pet")
-public class PetController 
-{
+public class PetController {
 	@Autowired
 	PetServiceImpl petServiceImpl;
-	
+
 	@PostMapping("/addPet")
-	public ResponseEntity<PetDto> addPet(PetDto petDto)
-	{
+	public ResponseEntity<PetDto> addPet(PetDto petDto) {
 		return new ResponseEntity<PetDto>(petServiceImpl.addPet(petDto), HttpStatus.CREATED);
 	}
-	
+
 	@PutMapping("/updatePet/{petId}")
-	public ResponseEntity<String> updatePet(@PathVariable int petId, PetDto petDto)
-	{
+	public ResponseEntity<String> updatePet(@PathVariable int petId, PetDto petDto) {
 		petServiceImpl.updatePet(petId, petDto);
 		return new ResponseEntity<String>("Pet details updated successfully!", HttpStatus.OK);
 	}
-	
+
 	@DeleteMapping("/deletePet/{petId}")
-	public ResponseEntity<String> deletePet(@PathVariable int petId)
-	{
+	public ResponseEntity<String> deletePet(@PathVariable int petId) {
 		petServiceImpl.deletePet(petId);
-		return new ResponseEntity<String>("Pet details deleted successfully for pet id "+petId, HttpStatus.OK);
+		return new ResponseEntity<String>("Pet details deleted successfully for pet id " + petId, HttpStatus.OK);
 	}
-	
+
 	@GetMapping("/getAllPets")
-	public ResponseEntity<List<Pet>> getAllPets()
-	{
+	public ResponseEntity<List<Pet>> getAllPets() {
 		return new ResponseEntity<List<Pet>>(petServiceImpl.getAllPets(), HttpStatus.OK);
 	}
-	
+
 	@GetMapping("/findByPetId/{petId}")
-	public ResponseEntity<Pet> findByPetId(@PathVariable int petId)
-	{
+	public ResponseEntity<Pet> findByPetId(@PathVariable int petId) {
 		return new ResponseEntity<Pet>(petServiceImpl.findByPetId(petId), HttpStatus.OK);
 	}
-	
+
 	@GetMapping("/findByPetName/{petName}")
-	public ResponseEntity<Pet> findByPetName(@PathVariable String petName)
-	{
+	public ResponseEntity<Pet> findByPetName(@PathVariable String petName) {
 		return new ResponseEntity<Pet>(petServiceImpl.findByPetName(petName), HttpStatus.OK);
 	}
-	
+
 }

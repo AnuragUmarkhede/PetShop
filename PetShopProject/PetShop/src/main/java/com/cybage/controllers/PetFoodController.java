@@ -28,15 +28,17 @@ public class PetFoodController {
 	PetFoodServiceImpl petFoodServiceImpl;
 
 	@PostMapping("/addPetFood")
-	public ResponseEntity<String> addPetFood(@RequestParam("file") MultipartFile file, @RequestParam("foodName") String foodName,@RequestParam("foodCategory") String foodCategory,@RequestParam("foodPrice") double foodPrice,
-			@RequestParam("foodQuantity") int foodQuantity) {
+	public ResponseEntity<String> addPetFood(@RequestParam("file") MultipartFile file,
+			@RequestParam("foodName") String foodName, @RequestParam("foodCategory") String foodCategory,
+			@RequestParam("foodPrice") double foodPrice, @RequestParam("foodQuantity") int foodQuantity) {
 		petFoodServiceImpl.addPetFood(file, foodName, foodCategory, foodPrice, foodQuantity);
 		return new ResponseEntity<String>("Pet food details added successfully!", HttpStatus.CREATED);
 	}
 
 	@PutMapping("/updatePetFood/{foodId}")
-	public ResponseEntity<String> updatePetFood(@PathVariable int foodId, @RequestParam("file") MultipartFile file, @RequestParam("foodName") String foodName, @RequestParam("foodCategory") String foodCategory, @RequestParam("foodPrice") double foodPrice,
-			 @RequestParam("foodQuantity") int foodQuantity) {
+	public ResponseEntity<String> updatePetFood(@PathVariable int foodId, @RequestParam("file") MultipartFile file,
+			@RequestParam("foodName") String foodName, @RequestParam("foodCategory") String foodCategory,
+			@RequestParam("foodPrice") double foodPrice, @RequestParam("foodQuantity") int foodQuantity) {
 		petFoodServiceImpl.updatePetFood(foodId, file, foodName, foodCategory, foodPrice, foodQuantity);
 		return new ResponseEntity<String>("Pet food details updated successfully!", HttpStatus.OK);
 	}
@@ -51,17 +53,21 @@ public class PetFoodController {
 	public ResponseEntity<List<PetFood>> getAllFood() {
 		return new ResponseEntity<List<PetFood>>(petFoodServiceImpl.getAllFood(), HttpStatus.OK);
 	}
-	
+
 	@GetMapping("/findByFoodName/{foodName}")
-	public ResponseEntity<PetFood> findByFoodName(@PathVariable String foodName)
-	{
+	public ResponseEntity<PetFood> findByFoodName(@PathVariable String foodName) {
 		return new ResponseEntity<PetFood>(petFoodServiceImpl.findByFoodName(foodName), HttpStatus.OK);
 	}
-	
+
 	@GetMapping("/findByFoodId/{foodId}")
-	public ResponseEntity<PetFood> findByFoodId(@PathVariable int foodId)
-	{
+	public ResponseEntity<PetFood> findByFoodId(@PathVariable int foodId) {
 		return new ResponseEntity<PetFood>(petFoodServiceImpl.findByFoodId(foodId), HttpStatus.OK);
+	}
+	
+	@GetMapping("/findByFoodCategory/{foodCategory}")
+	public ResponseEntity<List<PetFood>> findByFoodCategory(@PathVariable String foodCategory)
+	{
+		return new ResponseEntity<List<PetFood>>(petFoodServiceImpl.findByFoodCategory(foodCategory), HttpStatus.OK);
 	}
 
 }

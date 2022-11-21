@@ -14,59 +14,58 @@ import com.cybage.entities.PetAccessories;
 import com.cybage.exceptions.PetAccessoriesNotFoundException;
 
 @Service
-public class PetAccessoriesServiceImpl implements IPetAccessoriesService{
+public class PetAccessoriesServiceImpl implements IPetAccessoriesService {
 
 	@Autowired
-	PetAccessoriesRepository petAccessoriesRepository; 
-	
+	PetAccessoriesRepository petAccessoriesRepository;
+
 	@Override
 	public void addPetAccessories(MultipartFile file, String itemName, String itemCategory, double itemPrice,
 			int itemQuantity) {
-		
+
 		PetAccessories petAccessories = new PetAccessories();
-		String fileName=StringUtils.cleanPath(file.getOriginalFilename());
-		if(fileName.contains(".."))
-		{
+		String fileName = StringUtils.cleanPath(file.getOriginalFilename());
+		if (fileName.contains("..")) {
 			System.out.println("not a valid file");
 		}
 		try {
 			petAccessories.setItemImage(Base64.getEncoder().encodeToString(file.getBytes()));
 		} catch (IOException e) {
-			
+
 			e.printStackTrace();
 		}
-		
+
 		petAccessories.setItemName(itemName);
 		petAccessories.setItemCategory(itemCategory);
 		petAccessories.setItemPrice(itemPrice);
 		petAccessories.setItemQuantity(itemQuantity);
-		
+
 		petAccessoriesRepository.save(petAccessories);
-		
+
 	}
-	
+
 	@Override
 	public void updatePetAccessories(int itemId, MultipartFile file, String itemName, String itemCategory,
 			double itemPrice, int itemQuantity) {
-		PetAccessories petAccessoriesToBeUpdated = petAccessoriesRepository.findById(itemId).orElseThrow(()-> new PetAccessoriesNotFoundException("Pet Accessories does not exist for id"+itemId));
-		
-		String fileName=StringUtils.cleanPath(file.getOriginalFilename());
-		if(fileName.contains(".."))
-		{
+		PetAccessories petAccessoriesToBeUpdated = petAccessoriesRepository.findById(itemId).orElseThrow(
+				() -> new PetAccessoriesNotFoundException("Pet Accessories does not exist for id" + itemId));
+
+		String fileName = StringUtils.cleanPath(file.getOriginalFilename());
+		if (fileName.contains("..")) {
 			System.out.println("not a valid file");
 		}
 		try {
 			petAccessoriesToBeUpdated.setItemImage(Base64.getEncoder().encodeToString(file.getBytes()));
 		} catch (IOException e) {
-			
+
 			e.printStackTrace();
 		}
-		
+
 		petAccessoriesToBeUpdated.setItemName(itemName);
 		petAccessoriesToBeUpdated.setItemCategory(itemCategory);
 		petAccessoriesToBeUpdated.setItemPrice(itemPrice);
 		petAccessoriesToBeUpdated.setItemQuantity(itemQuantity);
-		
+
 		petAccessoriesRepository.save(petAccessoriesToBeUpdated);
 	}
 
@@ -94,11 +93,5 @@ public class PetAccessoriesServiceImpl implements IPetAccessoriesService{
 	public List<PetAccessories> findByItemCategory(String itemCategory) {
 		return petAccessoriesRepository.findByItemCategory(itemCategory);
 	}
-
-	
-
-	
-
-	
 
 }

@@ -20,48 +20,38 @@ import com.cybage.services.UserServiceImpl;
 @RestController
 @CrossOrigin
 @RequestMapping("/user")
-public class UserController 
-{
+public class UserController {
 	@Autowired
 	UserServiceImpl userServiceImpl;
-	
+
 	@PostMapping("/addUser")
-	public ResponseEntity<User> addUser(@RequestBody User user)
-	{
+	public ResponseEntity<User> addUser(@RequestBody User user) {
 		return new ResponseEntity<User>(userServiceImpl.addUser(user), HttpStatus.CREATED);
 	}
-	
+
 	@PutMapping("/updateUser/{userEmail}")
-	public ResponseEntity<User> updateUser(@PathVariable String userEmail, @RequestBody User user)
-	{
+	public ResponseEntity<User> updateUser(@PathVariable String userEmail, @RequestBody User user) {
 		return new ResponseEntity<User>(userServiceImpl.updateUser(userEmail, user), HttpStatus.OK);
 	}
-	
+
 	@GetMapping("/findByUserEmail/{userEmail}")
-	public ResponseEntity<User> findByUserEmail(@PathVariable String userEmail)
-	{
+	public ResponseEntity<User> findByUserEmail(@PathVariable String userEmail) {
 		return new ResponseEntity<User>(userServiceImpl.findByUserEmail(userEmail), HttpStatus.OK);
 	}
-	
+
 	@GetMapping("/getAllUser")
-	public ResponseEntity<List<User>> getAllUser()
-	{
+	public ResponseEntity<List<User>> getAllUser() {
 		return new ResponseEntity<List<User>>(userServiceImpl.getAllUser(), HttpStatus.OK);
 	}
-	
-	
+
 	@PostMapping("/userLogin")
-	public ResponseEntity<User> login(@RequestBody User user)
-	{
-		user=userServiceImpl.login(user);
-		if(user!=null) {
-			return new ResponseEntity<User>(user,HttpStatus.OK);
-		}
-		else
-		{
+	public ResponseEntity<User> login(@RequestBody User user) {
+		user = userServiceImpl.login(user);
+		if (user != null) {
+			return new ResponseEntity<User>(user, HttpStatus.OK);
+		} else {
 			return null;
 		}
 	}
-	
 
 }

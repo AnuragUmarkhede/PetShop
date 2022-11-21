@@ -23,56 +23,53 @@ import com.cybage.services.PetAccessoriesServiceImpl;
 @CrossOrigin
 @RequestMapping("/petAccessories")
 public class PetAccessoriesController {
-	
+
 	@Autowired
 	PetAccessoriesServiceImpl petAccessoriesServiceImpl;
-	
+
 	@PostMapping("/addPetAccessories")
-	public ResponseEntity<String> addPetAccessories(@RequestParam("file") MultipartFile file,@RequestParam("itemName") String itemName,@RequestParam("itemCategory") String itemCategory,@RequestParam("itemPrice") double itemPrice,
-			@RequestParam("itemQuantity") int itemQuantity)	
-	{
+	public ResponseEntity<String> addPetAccessories(@RequestParam("file") MultipartFile file,
+			@RequestParam("itemName") String itemName, @RequestParam("itemCategory") String itemCategory,
+			@RequestParam("itemPrice") double itemPrice, @RequestParam("itemQuantity") int itemQuantity) {
 		petAccessoriesServiceImpl.addPetAccessories(file, itemName, itemCategory, itemPrice, itemQuantity);
 		return new ResponseEntity<String>("Pet accessories details added successfully!", HttpStatus.CREATED);
 	}
-	
+
 	@PutMapping("/updatePetAccessories/{itemId}")
-	public ResponseEntity<String> updatePetAccessories(@PathVariable int itemId,@RequestParam("file") MultipartFile file,@RequestParam("itemName") String itemName,@RequestParam("itemCategory") String itemCategory,@RequestParam("itemPrice") double itemPrice,
-			@RequestParam("itemQuantity") int itemQuantity)
-	{
+	public ResponseEntity<String> updatePetAccessories(@PathVariable int itemId,
+			@RequestParam("file") MultipartFile file, @RequestParam("itemName") String itemName,
+			@RequestParam("itemCategory") String itemCategory, @RequestParam("itemPrice") double itemPrice,
+			@RequestParam("itemQuantity") int itemQuantity) {
 		petAccessoriesServiceImpl.updatePetAccessories(itemId, file, itemName, itemCategory, itemPrice, itemQuantity);
 		return new ResponseEntity<String>("Pet Accessories details updated successfully!", HttpStatus.OK);
 	}
-	
+
 	@DeleteMapping("/deletePetAccessories/{itemId}")
-	public ResponseEntity<String> deletePetAccessories(@PathVariable int itemId)
-	{
+	public ResponseEntity<String> deletePetAccessories(@PathVariable int itemId) {
 		petAccessoriesServiceImpl.deletePetAccessories(itemId);
-		return new ResponseEntity<String>("Pet Accessories details deleted successfully for Accessories id "+itemId, HttpStatus.OK);
+		return new ResponseEntity<String>("Pet Accessories details deleted successfully for Accessories id " + itemId,
+				HttpStatus.OK);
 	}
-	
+
 	@GetMapping("/getAllAccessories")
-	public ResponseEntity<List<PetAccessories>> getAllAccessories()
-	{
+	public ResponseEntity<List<PetAccessories>> getAllAccessories() {
 		return new ResponseEntity<List<PetAccessories>>(petAccessoriesServiceImpl.getAllAccessories(), HttpStatus.OK);
 	}
-	 
+
 	@GetMapping("/findByItemName/{itemName}")
-	public ResponseEntity<PetAccessories> findByItemName(@PathVariable String itemName)
-	{
+	public ResponseEntity<PetAccessories> findByItemName(@PathVariable String itemName) {
 		return new ResponseEntity<PetAccessories>(petAccessoriesServiceImpl.findByItemName(itemName), HttpStatus.OK);
 	}
-	
+
 	@GetMapping("/findByItemId/{itemId}")
-	public ResponseEntity<PetAccessories> findByItemId(@PathVariable int itemId)
-	{
+	public ResponseEntity<PetAccessories> findByItemId(@PathVariable int itemId) {
 		return new ResponseEntity<PetAccessories>(petAccessoriesServiceImpl.findByItemId(itemId), HttpStatus.OK);
 	}
-	
-	
+
 	@GetMapping("/findByItemCategory/{itemCategory}")
-	public ResponseEntity<List<PetAccessories>> findByItemCategory(@PathVariable String itemCategory)
-	{
-		return new ResponseEntity<List<PetAccessories>>(petAccessoriesServiceImpl.findByItemCategory(itemCategory), HttpStatus.OK);
+	public ResponseEntity<List<PetAccessories>> findByItemCategory(@PathVariable String itemCategory) {
+		return new ResponseEntity<List<PetAccessories>>(petAccessoriesServiceImpl.findByItemCategory(itemCategory),
+				HttpStatus.OK);
 	}
 
 }

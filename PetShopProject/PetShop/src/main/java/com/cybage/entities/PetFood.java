@@ -54,4 +54,9 @@ public class PetFood
 	@JsonManagedReference(value = "petFoodJson")
 	@JsonIgnore
 	private List<FavouriteItem> favouriteItems;
+	
+	@OneToMany(mappedBy = "petFood",cascade = CascadeType.ALL)
+	@JsonManagedReference(value = "petFoodJson")
+	@JsonIgnore
+	private List<CartItem> cartItems;
 }

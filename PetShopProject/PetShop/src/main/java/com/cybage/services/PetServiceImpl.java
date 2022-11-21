@@ -17,17 +17,15 @@ public class PetServiceImpl implements IPetService {
 
 	@Autowired
 	PetRepository petRepository;
-	
+
 	@Autowired
 	PetDto petDto;
-	
+
 	@Autowired
 	FileService fileService;
-	
 
 	@Override
-	public PetDto addPet(PetDto petDto)
-	{
+	public PetDto addPet(PetDto petDto) {
 		List<Pet> petsList = new ArrayList<>();
 		Pet pet = new Pet();
 		pet.setPetId(petDto.getPetId());
@@ -37,22 +35,21 @@ public class PetServiceImpl implements IPetService {
 		pet.setGender(petDto.getGender());
 		pet.setPetImage(fileService.getImageData(petDto.getPetImage()));
 		petsList.add(pet);
-		
+
 		PetCategory petCategory = new PetCategory();
-		
+
 		petCategory.setCategoryId(petDto.getCategoryId());
-		
+
 		pet.setPetCategory(petCategory);
 		petCategory.setPets(petsList);
-		
-		
+
 		return petDto.toPetDto(petRepository.save(pet));
 	}
-	
+
 	@Override
-	public PetDto updatePet(int petId,PetDto petDto) {
+	public PetDto updatePet(int petId, PetDto petDto) {
 		Pet petToBeUpdated = petRepository.findByPetId(petId);
-		
+
 		petToBeUpdated.setPetId(petDto.getPetId());
 		petToBeUpdated.setPetName(petDto.getPetName());
 		petToBeUpdated.setPetDescription(petDto.getPetDescription());
@@ -63,7 +60,6 @@ public class PetServiceImpl implements IPetService {
 		return petDto.toPetDto(petRepository.save(petToBeUpdated));
 	}
 
-
 	@Override
 	public void deletePet(int petId) {
 		petRepository.deleteById(petId);
@@ -73,11 +69,12 @@ public class PetServiceImpl implements IPetService {
 	public List<Pet> getAllPets() {
 		return petRepository.findAll();
 	}
-	
+
 	@Override
 	public Pet findByPetId(int petId) {
-		return petRepository.findById(petId).orElseThrow(()-> new PetNotFoundException("Pet does not exist for id "+petId));
-		
+		return petRepository.findById(petId)
+				.orElseThrow(() -> new PetNotFoundException("Pet does not exist for id " + petId));
+
 	}
 
 	@Override

@@ -5,6 +5,7 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
@@ -26,28 +27,15 @@ import lombok.NoArgsConstructor;
 public class Cart 
 {
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int cartId;
 	
-	@OneToMany(mappedBy = "cart",cascade = CascadeType.ALL)
-	@JsonManagedReference(value = "cartJson")
-	@JsonIgnore
-	private List<Pet> pets;
+	private String sessionToken;
 	
 	@OneToMany(mappedBy = "cart",cascade = CascadeType.ALL)
 	@JsonManagedReference(value = "cartJson")
 	@JsonIgnore
-	private List<PetFood> petFoods;
-	
-	@OneToMany(mappedBy = "cart",cascade = CascadeType.ALL)
-	@JsonManagedReference(value = "cartJson")
-	@JsonIgnore
-	private List<PetAccessories> petAccessories;
-	
-	@OneToMany(mappedBy = "cart",cascade = CascadeType.ALL)
-	@JsonManagedReference(value = "cartJson")
-	@JsonIgnore
-	private List<FavouriteList> favouriteList;
+	private List<CartItem> cartItems;
 	
 	@OneToOne
 	@JoinColumn(name="user_email")

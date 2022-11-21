@@ -22,54 +22,44 @@ import com.cybage.services.PetCategoryServiceImpl;
 @RestController
 @CrossOrigin
 @RequestMapping("/petCategory")
-public class PetCategoryController
-{
+public class PetCategoryController {
 	@Autowired
 	PetCategoryServiceImpl petCategoryServiceImpl;
-	
+
 	@PostMapping("/addPetCategory")
-	public ResponseEntity<String> addPetCategory(@RequestParam("file") MultipartFile file,@RequestParam("categoryName") String categoryName)
-	{
+	public ResponseEntity<String> addPetCategory(@RequestParam("file") MultipartFile file,
+			@RequestParam("categoryName") String categoryName) {
 		petCategoryServiceImpl.addPetCategory(file, categoryName);
 		return new ResponseEntity<String>("Pet category details added!", HttpStatus.OK);
 	}
-	
-//	@PutMapping("/updatePetCategory/{categoryId}")                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  
-//	public ResponseEntity<PetCategory> updatePetCategory(@PathVariable int categoryId, @RequestBody PetCategory petCategory)
-//	{
-//		return new ResponseEntity<PetCategory>(petCategoryServiceImpl.updatePetCategory(categoryId, petCategory), HttpStatus.OK);
-//	}
-	
+
 	@PutMapping("/updatePetCategory/{categoryId}")
-	public ResponseEntity<PetCategory> updatePetCategory(@PathVariable int categoryId, @RequestParam("file") MultipartFile file, @RequestParam("categoryName") String categoryName)
-	{
-		return new ResponseEntity<PetCategory>(petCategoryServiceImpl.updatePetCategory(file, categoryId, categoryName), HttpStatus.OK);
+	public ResponseEntity<PetCategory> updatePetCategory(@PathVariable int categoryId,
+			@RequestParam("file") MultipartFile file, @RequestParam("categoryName") String categoryName) {
+		return new ResponseEntity<PetCategory>(petCategoryServiceImpl.updatePetCategory(file, categoryId, categoryName),
+				HttpStatus.OK);
 	}
-	
+
 	@DeleteMapping("/deletePetCategory/{categoryId}")
-	public ResponseEntity<String> deletePetCategory(@PathVariable int categoryId)
-	{
+	public ResponseEntity<String> deletePetCategory(@PathVariable int categoryId) {
 		petCategoryServiceImpl.deletePetCategory(categoryId);
-		return new ResponseEntity<String>("Pet category details deleted successfully for pet category id "+categoryId, HttpStatus.OK);
+		return new ResponseEntity<String>("Pet category details deleted successfully for pet category id " + categoryId,
+				HttpStatus.OK);
 	}
-	
+
 	@GetMapping("/getAllPetCategory")
-	public ResponseEntity<List<PetCategory>> getAllPetCategory()
-	{
+	public ResponseEntity<List<PetCategory>> getAllPetCategory() {
 		return new ResponseEntity<List<PetCategory>>(petCategoryServiceImpl.getAllPetCategory(), HttpStatus.OK);
 	}
-	
+
 	@GetMapping("/findByCategoryId/{categoryId}")
-	public ResponseEntity<PetCategory> findByCategoryId(@PathVariable int categoryId)
-	{
+	public ResponseEntity<PetCategory> findByCategoryId(@PathVariable int categoryId) {
 		return new ResponseEntity<PetCategory>(petCategoryServiceImpl.findByCategoryId(categoryId), HttpStatus.OK);
 	}
-	
+
 	@GetMapping("/findByCategoryName/{categoryName}")
-	public ResponseEntity<PetCategory> findByCategoryName(@PathVariable String categoryName)
-	{
+	public ResponseEntity<PetCategory> findByCategoryName(@PathVariable String categoryName) {
 		return new ResponseEntity<PetCategory>(petCategoryServiceImpl.findByCategoryName(categoryName), HttpStatus.OK);
 	}
-	
-	
+
 }
