@@ -1,9 +1,12 @@
 package com.cybage.entities;
 
+import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
@@ -35,15 +38,10 @@ public class PetAccessories
 	@Positive(message = "Pet accessory quantity should be greated than 0")
 	private int itemQuantity;
 	
-	@ManyToOne
+	@ManyToMany
 	@JoinColumn(name = "id")
 	@JsonBackReference(value = "petAccessoriesJson")
-	private FavouriteItem favouriteItem;
-	
-	@ManyToOne
-	@JoinColumn(name="favourite_id")
-	@JsonBackReference(value = "favouriteJson")
-	private FavouriteList favourite;
+	private List<FavouriteItem> favouriteItem;
 	
 	@ManyToOne
 	@JoinColumn(name = "cart_item_id")

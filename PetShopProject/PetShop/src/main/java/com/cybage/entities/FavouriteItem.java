@@ -8,8 +8,10 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
@@ -31,25 +33,24 @@ public class FavouriteItem
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
 	
-	@OneToMany(mappedBy = "favouriteItem",cascade = CascadeType.ALL)
+	@ManyToMany(mappedBy = "favouriteItem",cascade = CascadeType.ALL)
 	@JsonManagedReference(value = "petJson")
 	@JsonIgnore
 	private List<Pet> pets;
 	
-	@OneToMany(mappedBy = "favouriteItem",cascade = CascadeType.ALL)
+	@ManyToMany(mappedBy = "favouriteItem",cascade = CascadeType.ALL)
 	@JsonManagedReference(value = "petFoodJson")
 	@JsonIgnore
 	private List<PetFood> petFoods;
 	
-	@OneToMany(mappedBy = "favouriteItem",cascade = CascadeType.ALL)
+	@ManyToMany(mappedBy = "favouriteItem",cascade = CascadeType.ALL)
 	@JsonManagedReference(value = "petAccessoriesJson")
 	@JsonIgnore
 	private List<PetAccessories> petAccessories;
 	
 	@ManyToOne
-	@JoinColumn(name = "fav_id")
-	@JsonBackReference(value = "favouriteListJson")
-	private FavouriteList favouriteList;
-	
-	
+	@JoinColumn(name="user_email")
+	@JsonBackReference
+	private User userMail;
+
 }

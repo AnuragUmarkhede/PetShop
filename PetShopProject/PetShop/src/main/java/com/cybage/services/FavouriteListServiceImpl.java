@@ -2,20 +2,19 @@
 package com.cybage.services;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.cybage.daos.FavouriteItemRepository;
-import com.cybage.daos.FavouriteListRepository;
 import com.cybage.daos.PetAccessoriesRepository;
 import com.cybage.daos.PetCategoryRepository;
 import com.cybage.daos.PetFoodRepository;
 import com.cybage.daos.PetRepository;
 import com.cybage.daos.UserRepository;
 import com.cybage.entities.FavouriteItem;
-import com.cybage.entities.FavouriteList;
 import com.cybage.entities.Pet;
 import com.cybage.entities.PetAccessories;
 import com.cybage.entities.PetFood;
@@ -26,9 +25,6 @@ public class FavouriteListServiceImpl implements IFavouriteListService {
 
 	@Autowired
 	FavouriteItemRepository favouriteItemRepository;
-
-	@Autowired
-	FavouriteListRepository favouriteListRepository;
 
 	@Autowired
 	PetServiceImpl petServiceImpl;
@@ -55,8 +51,7 @@ public class FavouriteListServiceImpl implements IFavouriteListService {
 	UserRepository userRepository;
 
 	@Override
-	public FavouriteList addToFavouriteList(int id, String sessionToken, String userEmail) {
-		FavouriteList favouriteList = new FavouriteList();
+	public FavouriteItem addToFavouriteList(int id , String userEmail) {
 		FavouriteItem favouriteItem = new FavouriteItem();
 		List<FavouriteItem> favouriteItemList = new ArrayList<>();
 		
@@ -77,36 +72,32 @@ public class FavouriteListServiceImpl implements IFavouriteListService {
 				petList.add(petServiceImpl.findByPetId(id));
 				favouriteItem.setPets(petList);
 				favouriteItemList.add(favouriteItem);
-				favouriteList.setFavouriteItems(favouriteItemList);
-				
-				//Pet petToBeAdded = petServiceImpl.findByPetId(id);
-				//favouriteItem.setPets(petList);
-				
 			}
-			else if(categoryName.equals("Cat"))
-			{
-				petList.add(petServiceImpl.findByPetId(id));
-				favouriteItem.setPets(petList);
-				favouriteItemList.add(favouriteItem);
-				favouriteList.setFavouriteItems(favouriteItemList);
-				
-			}
-			else if(categoryName.equals("Bird"))
-			{
-				petList.add(petServiceImpl.findByPetId(id));
-				favouriteItem.setPets(petList);
-				favouriteItemList.add(favouriteItem);
-				favouriteList.setFavouriteItems(favouriteItemList);
-				
-			}
-			else if(categoryName.equals("Fish"))
-			{
-				petList.add(petServiceImpl.findByPetId(id));
-				favouriteItem.setPets(petList);
-				favouriteItemList.add(favouriteItem);
-				favouriteList.setFavouriteItems(favouriteItemList);
-				
-			}
+//			else if(categoryName.equals("Cat"))
+//			{
+//				petList.add(petServiceImpl.findByPetId(id));
+//				favouriteItem.setPets(petList);
+//				favouriteItemList.add(favouriteItem);
+//				favouriteList.setFavouriteItems(favouriteItemList);
+//				
+//			}
+//			else if(categoryName.equals("Bird"))
+//			{
+//				petList.add(petServiceImpl.findByPetId(id));
+//				favouriteItem.setPets(petList);
+//				favouriteItemList.add(favouriteItem);
+//				favouriteList.setFavouriteItems(favouriteItemList);
+//				
+//			}
+//			else if(categoryName.equals("Fish"))
+//			{
+//				petList.add(petServiceImpl.findByPetId(id));
+//				favouriteItem.setPets(petList);
+//				favouriteItemList.add(favouriteItem);
+//				favouriteList.setFavouriteItems(favouriteItemList);
+//				
+//			}
+			pet.getFavouriteItem().addAll(favouriteItemList);
 		}
 		
 		
@@ -118,105 +109,110 @@ public class FavouriteListServiceImpl implements IFavouriteListService {
 			
 			if(foodCategory.equals("Dog food"))
 			{
+				
 				petFoodsList.add(petFoodServiceImpl.findByFoodId(id));
+				System.out.println(petFoodServiceImpl.findByFoodId(id).getFoodName());
 				favouriteItem.setPetFoods(petFoodsList);
 				favouriteItemList.add(favouriteItem);
-				favouriteList.setFavouriteItems(favouriteItemList);
 			}
-			else if(foodCategory.equals("Cat food"))
-			{
-				petFoodsList.add(petFoodServiceImpl.findByFoodId(id));
-				favouriteItem.setPetFoods(petFoodsList);
-				favouriteItemList.add(favouriteItem);
-				favouriteList.setFavouriteItems(favouriteItemList);
-			}
-			else if(foodCategory.equals("Bird food"))
-			{
-				petFoodsList.add(petFoodServiceImpl.findByFoodId(id));
-				favouriteItem.setPetFoods(petFoodsList);
-				favouriteItemList.add(favouriteItem);
-				favouriteList.setFavouriteItems(favouriteItemList);
-			}
-			else if(foodCategory.equals("Fish food"))
-			{
-				petFoodsList.add(petFoodServiceImpl.findByFoodId(id));
-				favouriteItem.setPetFoods(petFoodsList);
-				favouriteItemList.add(favouriteItem);
-				favouriteList.setFavouriteItems(favouriteItemList);
-			}
-		}
-		
-		
-		PetAccessories petAccessories = petAccessoriesRepository.findByItemId(id);
-		
-		if(petAccessories != null)
-		{
-			String itemCategory = petAccessories.getItemCategory();
 			
-			if(itemCategory.equals("Dog accessories"))
-			{
-				petAccessoriesList.add(petAccessoriesServiceImpl.findByItemId(id));
-				favouriteItem.setPetAccessories(petAccessoriesList);
-				favouriteItemList.add(favouriteItem);
-				favouriteList.setFavouriteItems(favouriteItemList);
-			}
-			else if(itemCategory.equals("Cat accessories"))
-			{
-				petAccessoriesList.add(petAccessoriesServiceImpl.findByItemId(id));
-				favouriteItem.setPetAccessories(petAccessoriesList);
-				favouriteItemList.add(favouriteItem);
-				favouriteList.setFavouriteItems(favouriteItemList);
-			}
-			else if(itemCategory.equals("Bird accessories"))
-			{
-				petAccessoriesList.add(petAccessoriesServiceImpl.findByItemId(id));
-				favouriteItem.setPetAccessories(petAccessoriesList);
-				favouriteItemList.add(favouriteItem);
-				favouriteList.setFavouriteItems(favouriteItemList);
-			}
-			else if(itemCategory.equals("Fish accessories"))
-			{
-				petAccessoriesList.add(petAccessoriesServiceImpl.findByItemId(id));
-				favouriteItem.setPetAccessories(petAccessoriesList);
-				favouriteItemList.add(favouriteItem);
-				favouriteList.setFavouriteItems(favouriteItemList);
-			}
+			petFood.getFavouriteItem().addAll(favouriteItemList);
 		}
+//			else if(foodCategory.equals("Cat food"))
+//			{
+//				petFoodsList.add(petFoodServiceImpl.findByFoodId(id));
+//				favouriteItem.setPetFoods(petFoodsList);
+//				favouriteItemList.add(favouriteItem);
+//				favouriteList.setFavouriteItems(favouriteItemList);
+//			}
+//			else if(foodCategory.equals("Bird food"))
+//			{
+//				petFoodsList.add(petFoodServiceImpl.findByFoodId(id));
+//				favouriteItem.setPetFoods(petFoodsList);
+//				favouriteItemList.add(favouriteItem);
+//				favouriteList.setFavouriteItems(favouriteItemList);
+//			}
+//			else if(foodCategory.equals("Fish food"))
+//			{
+//				petFoodsList.add(petFoodServiceImpl.findByFoodId(id));
+//				favouriteItem.setPetFoods(petFoodsList);
+//				favouriteItemList.add(favouriteItem);
+//				favouriteList.setFavouriteItems(favouriteItemList);
+//			}
+//		}
+//		
+//		
+//		PetAccessories petAccessories = petAccessoriesRepository.findByItemId(id);
+//		
+//		if(petAccessories != null)
+//		{
+//			String itemCategory = petAccessories.getItemCategory();
+//			
+//			if(itemCategory.equals("Dog accessories"))
+//			{
+//				petAccessoriesList.add(petAccessoriesServiceImpl.findByItemId(id));
+//				favouriteItem.setPetAccessories(petAccessoriesList);
+//				favouriteItemList.add(favouriteItem);
+//				favouriteList.setFavouriteItems(favouriteItemList);
+//			}
+//			else if(itemCategory.equals("Cat accessories"))
+//			{
+//				petAccessoriesList.add(petAccessoriesServiceImpl.findByItemId(id));
+//				favouriteItem.setPetAccessories(petAccessoriesList);
+//				favouriteItemList.add(favouriteItem);
+//				favouriteList.setFavouriteItems(favouriteItemList);
+//			}
+//			else if(itemCategory.equals("Bird accessories"))
+//			{
+//				petAccessoriesList.add(petAccessoriesServiceImpl.findByItemId(id));
+//				favouriteItem.setPetAccessories(petAccessoriesList);
+//				favouriteItemList.add(favouriteItem);
+//				favouriteList.setFavouriteItems(favouriteItemList);
+//			}
+//			else if(itemCategory.equals("Fish accessories"))
+//			{
+//				petAccessoriesList.add(petAccessoriesServiceImpl.findByItemId(id));
+//				favouriteItem.setPetAccessories(petAccessoriesList);
+//				favouriteItemList.add(favouriteItem);
+//				favouriteList.setFavouriteItems(favouriteItemList);
+//			}
+//		}
+//		
+//		favouriteList.setSessionToken(sessionToken);
+//		System.out.println("fav item"+favouriteItem);
+//		System.out.println("fav list"+favouriteList);
 		
-		favouriteList.setSessionToken(sessionToken);
-		System.out.println("fav item"+favouriteItem);
-		System.out.println("fav list"+favouriteList);
 		
-		favouriteList.setUser(user);
-		
-		return favouriteListRepository.save(favouriteList);
+//		
+		favouriteItem.setUserMail(user);
+//		
+		return favouriteItemRepository.save(favouriteItem);
 	}
 
 	@Override
-	public FavouriteList getFavouriteListBySessionToken(String sessionToken) {
-		return favouriteListRepository.findBySessionToken(sessionToken);
+	public List<FavouriteItem> getFavouriteList(String userEmail) {
+		return favouriteItemRepository.getFavouriteList(userEmail);
 	}
-
-	@Override
-	public FavouriteList removeFavouriteItemFromFavouriteList(int id, String sessionToken) {
-		FavouriteList favouriteList = favouriteListRepository.findBySessionToken(sessionToken);
-		List<FavouriteItem> favouriteItems = favouriteList.getFavouriteItems();
-		FavouriteItem item = null;
-		for (FavouriteItem item1 : favouriteItems) {
-			if (item1.getId() == id) {
-				item = item1;
-			}
-		}
-		favouriteItems.remove(item);
-		favouriteItemRepository.delete(item);
-		favouriteList.setFavouriteItems(favouriteItems);
-		return favouriteListRepository.save(favouriteList);
-	}
-
-	@Override
-	public void clearFavouriteList(String sessionToken) {
-		FavouriteList favouriteList = favouriteListRepository.findBySessionToken(sessionToken);
-		favouriteListRepository.delete(favouriteList);
-	}
-
+//	@Override
+//	public FavouriteList removeFavouriteItemFromFavouriteList(int id, String sessionToken) {
+//		FavouriteList favouriteList = favouriteListRepository.findBySessionToken(sessionToken);
+//		List<FavouriteItem> favouriteItems = favouriteList.getFavouriteItems();
+//		FavouriteItem item = null;
+//		for (FavouriteItem item1 : favouriteItems) {
+//			if (item1.getId() == id) {
+//				item = item1;
+//			}
+//		}
+//		favouriteItems.remove(item);
+//		favouriteItemRepository.delete(item);
+//		favouriteList.setFavouriteItems(favouriteItems);
+//		return favouriteListRepository.save(favouriteList);
+//	}
+//
+//	@Override
+//	public void clearFavouriteList(String sessionToken) {
+//		FavouriteList favouriteList = favouriteListRepository.findBySessionToken(sessionToken);
+//		favouriteListRepository.delete(favouriteList);
+//	}
+	
 }

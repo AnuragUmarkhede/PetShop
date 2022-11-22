@@ -1,11 +1,14 @@
 package com.cybage.entities;
 
+import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.Max;
@@ -52,16 +55,11 @@ public class Pet
 	@JsonBackReference(value = "petCategoryJson")
 	private PetCategory petCategory;
 	
-	@ManyToOne
+	@ManyToMany
 	@JoinColumn(name = "id")
 	@JsonBackReference(value = "petJson")
-	private FavouriteItem favouriteItem;
-	
-	@ManyToOne
-	@JoinColumn(name="fav_id")
-	@JsonBackReference(value = "favouriteListJson")
-	private FavouriteList favouriteList;
-	
+	private List<FavouriteItem> favouriteItem;
+
 	@ManyToOne
 	@JoinColumn(name = "cart_item_id")
 	@JsonBackReference(value = "cartItemJson")
