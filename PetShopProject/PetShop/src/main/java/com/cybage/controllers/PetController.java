@@ -26,8 +26,8 @@ public class PetController {
 	PetServiceImpl petServiceImpl;
 
 	@PostMapping("/addPet")
-	public ResponseEntity<PetDto> addPet(PetDto petDto) {
-		return new ResponseEntity<PetDto>(petServiceImpl.addPet(petDto), HttpStatus.CREATED);
+	public ResponseEntity<Pet> addPet(PetDto petDto) {
+		return new ResponseEntity<Pet>(petServiceImpl.addPet(petDto), HttpStatus.CREATED);
 	}
 
 	@PutMapping("/updatePet/{petId}")

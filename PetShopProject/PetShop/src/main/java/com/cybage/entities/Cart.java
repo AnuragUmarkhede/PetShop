@@ -35,10 +35,26 @@ public class Cart
 	@OneToMany(mappedBy = "cart",cascade = CascadeType.ALL)
 	@JsonManagedReference(value = "cartJson")
 	@JsonIgnore
+	private List<Pet> pets;
+	
+	@OneToMany(mappedBy = "cart",cascade = CascadeType.ALL)
+	@JsonManagedReference(value = "cartJson")
+	@JsonIgnore
+	private List<PetFood> petFoods;
+	
+	@OneToMany(mappedBy = "cart",cascade = CascadeType.ALL)
+	@JsonManagedReference(value = "cartJson")
+	@JsonIgnore
+	private List<PetAccessories> petAccessories;
+	
+	@OneToMany(mappedBy = "cart",cascade = CascadeType.ALL)
+	@JsonManagedReference(value = "cartJson")
+	@JsonIgnore
 	private List<CartItem> cartItems;
 	
 	@OneToOne
 	@JoinColumn(name="user_email")
+	@JsonManagedReference(value = "cartJson")
 	private User user;
 	
 	@OneToOne(mappedBy = "cart",cascade = CascadeType.ALL)

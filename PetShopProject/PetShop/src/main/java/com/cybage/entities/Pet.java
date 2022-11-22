@@ -1,8 +1,5 @@
 package com.cybage.entities;
 
-import java.util.List;
-
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -10,7 +7,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
@@ -18,15 +14,15 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Table
@@ -57,23 +53,23 @@ public class Pet
 	private PetCategory petCategory;
 	
 	@ManyToOne
+	@JoinColumn(name = "id")
+	@JsonBackReference(value = "petJson")
+	private FavouriteItem favouriteItem;
+	
+	@ManyToOne
+	@JoinColumn(name="fav_id")
+	@JsonBackReference(value = "favouriteListJson")
+	private FavouriteList favouriteList;
+	
+	@ManyToOne
+	@JoinColumn(name = "cart_item_id")
+	@JsonBackReference(value = "cartItemJson")
+	private CartItem cartItem;
+	
+	@ManyToOne
 	@JoinColumn(name="cart_id")
 	@JsonBackReference(value = "cartJson")
 	private Cart cart;
- 
-	@ManyToOne
-	@JoinColumn(name="id")
-	@JsonBackReference(value = "favouriteListJson")
-	private FavouriteList favouriteList;
-
-	@OneToMany(mappedBy = "pet",cascade = CascadeType.ALL)
-	@JsonManagedReference(value = "petJson")
-	@JsonIgnore
-	private List<FavouriteItem> favouriteItems;
-	
-	@OneToMany(mappedBy = "pet",cascade = CascadeType.ALL)
-	@JsonManagedReference(value = "petJson")
-	@JsonIgnore
-	private List<CartItem> cartItems;
 	
 }

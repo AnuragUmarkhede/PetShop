@@ -22,10 +22,10 @@ public class FavouriteListController
 	@Autowired
 	FavouriteListServiceImpl favouriteListServiceImpl;
 	
-	@PostMapping("/addToFavouriteList/{id}/{sessionToken}")
-	public ResponseEntity<FavouriteList> addToFavouriteList(@PathVariable int id, @PathVariable String sessionToken)
+	@PostMapping("/addToFavouriteList/{id}/{sessionToken}/{userEmail}")
+	public ResponseEntity<FavouriteList> addToFavouriteList(@PathVariable int id, @PathVariable String sessionToken , @PathVariable("userEmail") String userEmail)
 	{
-		return new ResponseEntity<FavouriteList>(favouriteListServiceImpl.addToFavouriteList(id, sessionToken), HttpStatus.CREATED);
+		return new ResponseEntity<FavouriteList>(favouriteListServiceImpl.addToFavouriteList(id, sessionToken , userEmail), HttpStatus.CREATED);
 	}
 	
 	@GetMapping("/getFavouriteListBySessionToken/{sessionToken}")

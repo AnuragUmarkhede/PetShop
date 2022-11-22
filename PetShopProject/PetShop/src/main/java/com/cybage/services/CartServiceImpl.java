@@ -1,5 +1,6 @@
 package com.cybage.services;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,9 @@ import com.cybage.daos.CartItemRepository;
 import com.cybage.daos.CartRepository;
 import com.cybage.entities.Cart;
 import com.cybage.entities.CartItem;
+import com.cybage.entities.Pet;
+import com.cybage.entities.PetAccessories;
+import com.cybage.entities.PetFood;
 
 @Service
 public class CartServiceImpl implements ICartService {
@@ -30,10 +34,19 @@ public class CartServiceImpl implements ICartService {
 	@Override
 	public Cart addToCartList(int id, String sessionToken) {
 		Cart cart = new Cart();
+		List<Pet> pets = new ArrayList<>();
+		List<PetFood> petFoods = new ArrayList<>();
+		List<PetAccessories> petAccessories = new ArrayList<>();
+
+		
+		
+		pets.add(petServiceImpl.findByPetId(id));
+		petFoods.add(petFoodServiceImpl.findByFoodId(id));
+		petAccessories.add(petAccessoriesServiceImpl.findByItemId(id));
 		CartItem cartItem = new CartItem();
-		cartItem.setPet(petServiceImpl.findByPetId(id));
-		cartItem.setPetFood(petFoodServiceImpl.findByFoodId(id));
-		cartItem.setPetAccessories(petAccessoriesServiceImpl.findByItemId(id));
+		cartItem.setPets(pets);
+		cartItem.setPetFoods(petFoods);
+		cartItem.setPetAccessories(petAccessories);
 		cart.getCartItems().add(cartItem);
 		cart.setSessionToken(sessionToken);
 		return cartRepository.save(cart);
@@ -49,7 +62,7 @@ public class CartServiceImpl implements ICartService {
 		List<CartItem> cartItems = cart.getCartItems();
 		CartItem item = null;
 		for (CartItem item1 : cartItems) {
-			if (item1.getId() == cartId) {
+			if (item1.getCartItemId() == cartId) {
 				item = item1;
 			}
 		}

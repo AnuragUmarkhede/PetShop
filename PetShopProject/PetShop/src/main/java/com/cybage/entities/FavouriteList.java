@@ -8,12 +8,10 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
@@ -30,7 +28,7 @@ public class FavouriteList
 {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private int id;
+	private int favId;
 	
 	private String sessionToken;
 	
@@ -39,12 +37,8 @@ public class FavouriteList
 	@JsonIgnore
 	private List<FavouriteItem> favouriteItems;
 	
-	@ManyToOne
-	@JoinColumn(name = "cart_id")
-	@JsonBackReference(value = "cartJson")
-	private Cart cart;
-	
 	@OneToOne
 	@JoinColumn(name = "user_email")
+	@JsonManagedReference(value = "favouriteListJson")
 	private User user;
 }

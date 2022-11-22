@@ -63,11 +63,5 @@ public class PetFoodController {
 	public ResponseEntity<PetFood> findByFoodId(@PathVariable int foodId) {
 		return new ResponseEntity<PetFood>(petFoodServiceImpl.findByFoodId(foodId), HttpStatus.OK);
 	}
-	
-	@GetMapping("/findByFoodCategory/{foodCategory}")
-	public ResponseEntity<List<PetFood>> findByFoodCategory(@PathVariable String foodCategory)
-	{
-		return new ResponseEntity<List<PetFood>>(petFoodServiceImpl.findByFoodCategory(foodCategory), HttpStatus.OK);
-	}
 
 }

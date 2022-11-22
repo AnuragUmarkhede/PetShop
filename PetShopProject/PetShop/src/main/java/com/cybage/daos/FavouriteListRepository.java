@@ -8,4 +8,5 @@ import com.cybage.entities.FavouriteList;
 @Repository
 public interface FavouriteListRepository extends JpaRepository<FavouriteList, Integer> {
 	public FavouriteList findBySessionToken(String sessionToken);
+
 }

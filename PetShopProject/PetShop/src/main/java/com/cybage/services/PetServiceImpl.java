@@ -25,7 +25,7 @@ public class PetServiceImpl implements IPetService {
 	FileService fileService;
 
 	@Override
-	public PetDto addPet(PetDto petDto) {
+	public Pet addPet(PetDto petDto) {
 		List<Pet> petsList = new ArrayList<>();
 		Pet pet = new Pet();
 		pet.setPetId(petDto.getPetId());
@@ -43,11 +43,11 @@ public class PetServiceImpl implements IPetService {
 		pet.setPetCategory(petCategory);
 		petCategory.setPets(petsList);
 
-		return petDto.toPetDto(petRepository.save(pet));
+		return petRepository.save(pet);
 	}
 
 	@Override
-	public PetDto updatePet(int petId, PetDto petDto) {
+	public Pet updatePet(int petId, PetDto petDto) {
 		Pet petToBeUpdated = petRepository.findByPetId(petId);
 
 		petToBeUpdated.setPetId(petDto.getPetId());
@@ -57,7 +57,7 @@ public class PetServiceImpl implements IPetService {
 		petToBeUpdated.setGender(petDto.getGender());
 		petToBeUpdated.setPetImage(fileService.getImageData(petDto.getPetImage()));
 
-		return petDto.toPetDto(petRepository.save(petToBeUpdated));
+		return petRepository.save(petToBeUpdated);
 	}
 
 	@Override

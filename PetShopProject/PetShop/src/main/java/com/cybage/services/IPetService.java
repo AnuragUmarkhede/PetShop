@@ -7,9 +7,9 @@ import com.cybage.entities.Pet;
 
 public interface IPetService {
 	// Method to add pet details
-	public PetDto addPet(PetDto petDto);
+	public Pet addPet(PetDto petDto);
 
-	public PetDto updatePet(int petId, PetDto petDto);
+	public Pet updatePet(int petId, PetDto petDto);
 
 	// Method to delete pet details
 	public void deletePet(int petId);
@@ -22,5 +22,6 @@ public interface IPetService {
 
 	// Method to find pet by name
 	public Pet findByPetName(String petName);
+
 
 }
