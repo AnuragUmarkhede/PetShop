@@ -176,17 +176,6 @@ public class CartServiceImpl implements ICartService {
 
 	@Override
 	public void removeCartItem(int id, String userEmail) {
-//		List<FavouriteItem> favouriteItems = favouriteItemRepository.getFavouriteList(userEmail);
-//		FavouriteItem item = null;
-//		for (FavouriteItem item1 : favouriteItems) {
-//			if (item1.getId() == id) {
-//				item = item1;
-//			}
-//		}
-//		favouriteItems.remove(item);
-//		favouriteItemRepository.delete(item);
-//		favouriteItemRepository.saveAll(favouriteItems);
-		
 		List<CartItem> cartItems = cartItemRepository.getCartList(userEmail);
 		CartItem item = null;
 		for (CartItem item1 : cartItems) {
@@ -199,30 +188,13 @@ public class CartServiceImpl implements ICartService {
 		cartItemRepository.saveAll(cartItems);
 		
 	}
+
+	@Override
+	public void clearCartList(String userEmail) {
+		List<CartItem> cartList = cartItemRepository.getCartList(userEmail);
+		cartItemRepository.deleteAll(cartList);
+	}
 	
-//	@Override
-//	public Cart removecartItemFromCart(int cartId, String sessionToken) {
-//		
-//		Cart cart = cartRepository.findBySessionToken(sessionToken);
-//		List<CartItem> cartItems = cart.getCartItems();
-//		CartItem item = null;
-//		for (CartItem item1 : cartItems) {
-//			if (item1.getCartItemId() == cartId) {
-//				item = item1;
-//			}
-//		}
-//		cartItems.remove(item);
-//		cartItemRepository.delete(item);
-//		cart.setCartItems(cartItems);
-//		return cartRepository.save(cart);
-//	}
-//	@Override
-//	public void clearCart(String sessionToken) {
-//
-//		Cart cart = cartRepository.findBySessionToken(sessionToken);
-//		cartRepository.delete(cart);
-//		
-//	}
 
 	
 }

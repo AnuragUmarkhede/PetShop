@@ -41,10 +41,12 @@ public class CartController {
 		cartServiceImpl.removeCartItem(id, userEmail);
 		return new ResponseEntity<String>("item removed from cart", HttpStatus.OK);
 	}
-//	@DeleteMapping("/clearCart/{sessionToken}")
-//	public ResponseEntity<String> clearCart(@PathVariable String sessionToken)
-//	{
-//		cartServiceImpl.clearCart(sessionToken);
-//		return new ResponseEntity<String>("Cart cleared!", HttpStatus.OK);
-//	}
+	
+	@DeleteMapping("/clearCartList/{userEmail}")
+	public ResponseEntity<String> clearCartList(@PathVariable String userEmail)
+	{
+		cartServiceImpl.clearCartList(userEmail);
+		return new ResponseEntity<String>("Cart list cleared", HttpStatus.OK);
+	}
+
 }

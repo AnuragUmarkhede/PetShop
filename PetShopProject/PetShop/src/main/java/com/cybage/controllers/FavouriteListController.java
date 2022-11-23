@@ -44,5 +44,12 @@ public class FavouriteListController
 		return new ResponseEntity<String>("item removed from favourite list", HttpStatus.OK);
 	}
 	
+	@DeleteMapping("/clearFavouriteList/{userEmail}")
+	public ResponseEntity<String> clearFavouriteList(@PathVariable String userEmail)
+	{
+		favouriteListServiceImpl.clearFavouriteList(userEmail);
+		return new ResponseEntity<String>("Favourite list cleared", HttpStatus.OK);
+	}
+	
 
 }

@@ -10,6 +10,6 @@ public interface IFavouriteListService {
 	public List<FavouriteItem> getFavouriteList(String userEmail);
 
 	public void removeFavouriteItem(int id,String userEmail);
-//
-//	public void clearFavouriteList(String sessionToken);
+	
+	public void clearFavouriteList(String userEmail);
 }
