@@ -59,15 +59,10 @@ public class Pet
 	@JoinColumn(name = "id")
 	@JsonBackReference(value = "petJson")
 	private List<FavouriteItem> favouriteItem;
-
-	@ManyToOne
-	@JoinColumn(name = "cart_item_id")
-	@JsonBackReference(value = "cartItemJson")
-	private CartItem cartItem;
 	
-	@ManyToOne
-	@JoinColumn(name="cart_id")
-	@JsonBackReference(value = "cartJson")
-	private Cart cart;
+	@ManyToMany
+	@JoinColumn(name = "cart_item_id")
+	@JsonBackReference(value = "petJson")
+	private List<CartItem> cartItem;
 	
 }

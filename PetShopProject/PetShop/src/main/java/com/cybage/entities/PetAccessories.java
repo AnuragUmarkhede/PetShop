@@ -7,7 +7,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Positive;
@@ -43,14 +42,9 @@ public class PetAccessories
 	@JsonBackReference(value = "petAccessoriesJson")
 	private List<FavouriteItem> favouriteItem;
 	
-	@ManyToOne
+	@ManyToMany
 	@JoinColumn(name = "cart_item_id")
-	@JsonBackReference(value = "cartItemJson")
-	private CartItem cartItem;
-	
-	@ManyToOne
-	@JoinColumn(name="cart_id")
-	@JsonBackReference(value = "cartJson")
-	private Cart cart;
+	@JsonBackReference(value = "petAccessoriesJson")
+	private List<CartItem> cartItem;
 	
 }

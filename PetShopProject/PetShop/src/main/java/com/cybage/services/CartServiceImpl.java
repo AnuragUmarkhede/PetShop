@@ -7,12 +7,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.cybage.daos.CartItemRepository;
-import com.cybage.daos.CartRepository;
-import com.cybage.entities.Cart;
+import com.cybage.daos.PetAccessoriesRepository;
+import com.cybage.daos.PetFoodRepository;
+import com.cybage.daos.PetRepository;
+import com.cybage.daos.UserRepository;
 import com.cybage.entities.CartItem;
 import com.cybage.entities.Pet;
 import com.cybage.entities.PetAccessories;
 import com.cybage.entities.PetFood;
+import com.cybage.entities.User;
 
 @Service
 public class CartServiceImpl implements ICartService {
@@ -21,8 +24,17 @@ public class CartServiceImpl implements ICartService {
 	CartItemRepository cartItemRepository;
 	
 	@Autowired
-	CartRepository cartRepository;
-
+	PetRepository petRepository;
+	
+	@Autowired
+	PetFoodRepository petFoodRepository;
+	
+	@Autowired
+	PetAccessoriesRepository petAccessoriesRepository;
+	
+	@Autowired
+	UserRepository userRepository;
+	
 	@Autowired
 	PetServiceImpl petServiceImpl;
 
@@ -31,53 +43,161 @@ public class CartServiceImpl implements ICartService {
 
 	@Autowired
 	PetAccessoriesServiceImpl petAccessoriesServiceImpl;
+	
+	
 	@Override
-	public Cart addToCartList(int id, String sessionToken) {
-		Cart cart = new Cart();
-		List<Pet> pets = new ArrayList<>();
-		List<PetFood> petFoods = new ArrayList<>();
-		List<PetAccessories> petAccessories = new ArrayList<>();
-
-		
-		
-		pets.add(petServiceImpl.findByPetId(id));
-		petFoods.add(petFoodServiceImpl.findByFoodId(id));
-		petAccessories.add(petAccessoriesServiceImpl.findByItemId(id));
+	public CartItem addToCartList(int id, String userEmail)
+	{
 		CartItem cartItem = new CartItem();
-		cartItem.setPets(pets);
-		cartItem.setPetFoods(petFoods);
-		cartItem.setPetAccessories(petAccessories);
-		cart.getCartItems().add(cartItem);
-		cart.setSessionToken(sessionToken);
-		return cartRepository.save(cart);
-	}
-	@Override
-	public Cart getCartBySessionToken(String sessionToken) {
-		return cartRepository.findBySessionToken(sessionToken);
-	}
-	@Override
-	public Cart removecartItemFromCart(int cartId, String sessionToken) {
+		List<CartItem> cartItemList = new ArrayList<>();
 		
-		Cart cart = cartRepository.findBySessionToken(sessionToken);
-		List<CartItem> cartItems = cart.getCartItems();
-		CartItem item = null;
-		for (CartItem item1 : cartItems) {
-			if (item1.getCartItemId() == cartId) {
-				item = item1;
+		List<Pet> petList = new ArrayList<>();
+		List<PetFood> petFoodsList = new ArrayList<>();
+		List<PetAccessories> petAccessoriesList = new ArrayList<>();
+		
+		User user = userRepository.findByUserEmail(userEmail);
+		
+		Pet pet = petRepository.findByPetId(id);
+		
+		if(pet != null)
+		{
+			String categoryName = pet.getPetCategory().getCategoryName();
+			
+			if(categoryName.equals("Dog"))
+			{
+				petList.add(petServiceImpl.findByPetId(id));
+				cartItem.setPets(petList);
+				cartItemList.add(cartItem);
 			}
-		}
-		cartItems.remove(item);
-		cartItemRepository.delete(item);
-		cart.setCartItems(cartItems);
-		return cartRepository.save(cart);
-	}
-	@Override
-	public void clearCart(String sessionToken) {
+			else if(categoryName.equals("Cat"))
+			{
+				petList.add(petServiceImpl.findByPetId(id));
+				cartItem.setPets(petList);
+				cartItemList.add(cartItem);
+				
+			}
+			else if(categoryName.equals("Bird"))
+			{
+				petList.add(petServiceImpl.findByPetId(id));
+				cartItem.setPets(petList);
+				cartItemList.add(cartItem);
+				
+			}
+			else if(categoryName.equals("Fish"))
+			{
+				petList.add(petServiceImpl.findByPetId(id));
+				cartItem.setPets(petList);
+				cartItemList.add(cartItem);
+			}
 
-		Cart cart = cartRepository.findBySessionToken(sessionToken);
-		cartRepository.delete(cart);
+			pet.getCartItem().addAll(cartItemList);
+		}
 		
+		PetFood petFood = petFoodRepository.findByFoodId(id);
+		
+		if(petFood != null)
+		{
+			String foodCategory = petFood.getFoodCategory();
+			
+			if(foodCategory.equals("Dog food"))
+			{
+				petFoodsList.add(petFoodServiceImpl.findByFoodId(id));
+				cartItem.setPetFoods(petFoodsList);
+				cartItemList.add(cartItem);
+			}
+			
+			else if(foodCategory.equals("Cat food"))
+			{
+				petFoodsList.add(petFoodServiceImpl.findByFoodId(id));
+				cartItem.setPetFoods(petFoodsList);
+				cartItemList.add(cartItem);
+			}
+			else if(foodCategory.equals("Bird food"))
+			{
+				petFoodsList.add(petFoodServiceImpl.findByFoodId(id));
+				cartItem.setPetFoods(petFoodsList);
+				cartItemList.add(cartItem);
+			}
+			else if(foodCategory.equals("Fish food"))
+			{
+				petFoodsList.add(petFoodServiceImpl.findByFoodId(id));
+				cartItem.setPetFoods(petFoodsList);
+				cartItemList.add(cartItem);
+			}
+			
+			petFood.getCartItem().addAll(cartItemList);
+			
+		}
+		
+		PetAccessories petAccessories = petAccessoriesRepository.findByItemId(id);
+		
+		if(petAccessories != null)
+		{
+			String itemCategory = petAccessories.getItemCategory();
+			
+			if(itemCategory.equals("Dog accessories"))
+			{
+				petAccessoriesList.add(petAccessoriesServiceImpl.findByItemId(id));
+				cartItem.setPetAccessories(petAccessoriesList);
+				cartItemList.add(cartItem);
+			}
+			else if(itemCategory.equals("Cat accessories"))
+			{
+				petAccessoriesList.add(petAccessoriesServiceImpl.findByItemId(id));
+				cartItem.setPetAccessories(petAccessoriesList);
+				cartItemList.add(cartItem);
+			}
+			else if(itemCategory.equals("Bird accessories"))
+			{
+				petAccessoriesList.add(petAccessoriesServiceImpl.findByItemId(id));
+				cartItem.setPetAccessories(petAccessoriesList);
+				cartItemList.add(cartItem);
+			}
+			else if(itemCategory.equals("Fish accessories"))
+			{
+				petAccessoriesList.add(petAccessoriesServiceImpl.findByItemId(id));
+				cartItem.setPetAccessories(petAccessoriesList);
+				cartItemList.add(cartItem);
+			}
+			
+			petAccessories.getCartItem().addAll(cartItemList);
+			
+		}
+		
+		cartItem.setUser(user);
+		
+		return cartItemRepository.save(cartItem);
 	}
+
+	@Override
+	public List<CartItem> getCartList(String userEmail)
+	{
+		return cartItemRepository.getCartList(userEmail);
+	}
+	
+//	@Override
+//	public Cart removecartItemFromCart(int cartId, String sessionToken) {
+//		
+//		Cart cart = cartRepository.findBySessionToken(sessionToken);
+//		List<CartItem> cartItems = cart.getCartItems();
+//		CartItem item = null;
+//		for (CartItem item1 : cartItems) {
+//			if (item1.getCartItemId() == cartId) {
+//				item = item1;
+//			}
+//		}
+//		cartItems.remove(item);
+//		cartItemRepository.delete(item);
+//		cart.setCartItems(cartItems);
+//		return cartRepository.save(cart);
+//	}
+//	@Override
+//	public void clearCart(String sessionToken) {
+//
+//		Cart cart = cartRepository.findBySessionToken(sessionToken);
+//		cartRepository.delete(cart);
+//		
+//	}
 
 	
 }

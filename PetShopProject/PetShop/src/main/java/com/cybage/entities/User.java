@@ -7,14 +7,12 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import lombok.AllArgsConstructor;
@@ -45,9 +43,9 @@ public class User
 	@Enumerated(EnumType.STRING)
 	private UserRole userRole;
 	
-	@OneToOne(mappedBy = "user")
-	@JsonBackReference(value = "cartJson")
-	private Cart cart;
+	@OneToMany(mappedBy = "user")
+	@JsonManagedReference(value = "userJson")
+	private List<CartItem> cartItem;
 	
 	@OneToMany(mappedBy = "userMail")
 	@JsonManagedReference

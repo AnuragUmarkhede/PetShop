@@ -31,7 +31,7 @@ public class FavouriteListController
 	}
 	
 	@GetMapping("/getFavouriteList/{userEmail}")
-	public ResponseEntity<List<FavouriteItem>> getFavouriteListBySessionToken(@PathVariable String userEmail)
+	public ResponseEntity<List<FavouriteItem>> getFavouriteListByUserEmail(@PathVariable String userEmail)
 	{
 		return new ResponseEntity<List<FavouriteItem>>(favouriteListServiceImpl.getFavouriteList(userEmail), HttpStatus.OK);
 	}
