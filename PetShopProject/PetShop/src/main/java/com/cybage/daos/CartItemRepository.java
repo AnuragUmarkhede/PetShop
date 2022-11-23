@@ -9,8 +9,7 @@ import org.springframework.stereotype.Repository;
 import com.cybage.entities.CartItem;
 
 @Repository
-public interface CartItemRepository extends JpaRepository<CartItem, Integer> 
-{
-	@Query(value =  "select * from cart_item where user_email=?1" , nativeQuery = true)
+public interface CartItemRepository extends JpaRepository<CartItem, Integer> {
+	@Query(value = "select * from cart_item where user_email=?1" , nativeQuery = true)
 	public List<CartItem> getCartList(String userEmail);
 }

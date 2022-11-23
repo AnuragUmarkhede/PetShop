@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -29,17 +30,17 @@ public class CartController {
 	}
 
 	@GetMapping("/getCartList/{userEmail}")
-	public ResponseEntity<List<CartItem>> getCartList(String userEmail)
+	public ResponseEntity<List<CartItem>> getCartList(@PathVariable String userEmail)
 	{
 		return new ResponseEntity<List<CartItem>>(cartServiceImpl.getCartList(userEmail), HttpStatus.OK);
 	}
 	
-//	@DeleteMapping("/removeCartItemFromCart/{id}/{sessionToken}")
-//	public ResponseEntity<Cart> removeCartItemFromCart(@PathVariable int id, @PathVariable String sessionToken)
-//	{
-//		return new ResponseEntity<Cart>(cartServiceImpl.removecartItemFromCart(id, sessionToken), HttpStatus.OK);
-//	}
-//
+	@DeleteMapping("/removeCartItem/{id}/{userEmail}")
+	public ResponseEntity<String> removeCartItem(@PathVariable int id, @PathVariable String userEmail)
+	{
+		cartServiceImpl.removeCartItem(id, userEmail);
+		return new ResponseEntity<String>("item removed from cart", HttpStatus.OK);
+	}
 //	@DeleteMapping("/clearCart/{sessionToken}")
 //	public ResponseEntity<String> clearCart(@PathVariable String sessionToken)
 //	{

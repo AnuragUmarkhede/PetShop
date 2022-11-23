@@ -170,9 +170,34 @@ public class CartServiceImpl implements ICartService {
 	}
 
 	@Override
-	public List<CartItem> getCartList(String userEmail)
-	{
+	public List<CartItem> getCartList(String userEmail){
 		return cartItemRepository.getCartList(userEmail);
+	}
+
+	@Override
+	public void removeCartItem(int id, String userEmail) {
+//		List<FavouriteItem> favouriteItems = favouriteItemRepository.getFavouriteList(userEmail);
+//		FavouriteItem item = null;
+//		for (FavouriteItem item1 : favouriteItems) {
+//			if (item1.getId() == id) {
+//				item = item1;
+//			}
+//		}
+//		favouriteItems.remove(item);
+//		favouriteItemRepository.delete(item);
+//		favouriteItemRepository.saveAll(favouriteItems);
+		
+		List<CartItem> cartItems = cartItemRepository.getCartList(userEmail);
+		CartItem item = null;
+		for (CartItem item1 : cartItems) {
+			if (item1.getCartItemId() == id) {
+				item = item1;
+			}
+		}
+		cartItems.remove(item);
+		cartItemRepository.delete(item);
+		cartItemRepository.saveAll(cartItems);
+		
 	}
 	
 //	@Override
