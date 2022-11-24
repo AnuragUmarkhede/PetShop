@@ -28,7 +28,7 @@ public class PetAccessoriesController {
 	PetAccessoriesServiceImpl petAccessoriesServiceImpl;
 
 	@PostMapping("/addPetAccessories")
-	public ResponseEntity<String> addPetAccessories(@RequestParam("file") MultipartFile file,
+	public ResponseEntity<String> addPetAccessories(@RequestParam("itemImage") MultipartFile file,
 			@RequestParam("itemName") String itemName, @RequestParam("itemCategory") String itemCategory,
 			@RequestParam("itemPrice") double itemPrice, @RequestParam("itemQuantity") int itemQuantity) {
 		petAccessoriesServiceImpl.addPetAccessories(file, itemName, itemCategory, itemPrice, itemQuantity);
@@ -37,7 +37,7 @@ public class PetAccessoriesController {
 
 	@PutMapping("/updatePetAccessories/{itemId}")
 	public ResponseEntity<String> updatePetAccessories(@PathVariable int itemId,
-			@RequestParam("file") MultipartFile file, @RequestParam("itemName") String itemName,
+			@RequestParam("itemImage") MultipartFile file, @RequestParam("itemName") String itemName,
 			@RequestParam("itemCategory") String itemCategory, @RequestParam("itemPrice") double itemPrice,
 			@RequestParam("itemQuantity") int itemQuantity) {
 		petAccessoriesServiceImpl.updatePetAccessories(itemId, file, itemName, itemCategory, itemPrice, itemQuantity);

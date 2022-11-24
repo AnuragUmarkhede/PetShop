@@ -48,6 +48,8 @@ public class Pet
 	@Size(max = 100)
 	@NotBlank(message = "Pet description cant be empty!")
 	private String petDescription;
+	
+	
 	private String petImage;
 	
 	@ManyToOne

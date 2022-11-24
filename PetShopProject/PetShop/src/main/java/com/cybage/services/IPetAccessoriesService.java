@@ -9,11 +9,11 @@ import com.cybage.entities.PetAccessories;
 public interface IPetAccessoriesService {
 
 	// Method to add pet Accessories details
-	public void addPetAccessories(MultipartFile file, String itemName, String itemCategory, double itemPrice,
+	public void addPetAccessories(MultipartFile itemImage, String itemName, String itemCategory, double itemPrice,
 			int itemQuantity);
 
 	// Method to update pet Accessories details
-	public void updatePetAccessories(int itemId, MultipartFile file, String itemName, String itemCategory,
+	public void updatePetAccessories(int itemId, MultipartFile itemImage, String itemName, String itemCategory,
 			double itemPrice, int itemQuantity);
 
 	// Method to delete pet Accessories details

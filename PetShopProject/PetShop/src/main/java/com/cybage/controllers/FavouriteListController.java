@@ -48,7 +48,7 @@ public class FavouriteListController
 	public ResponseEntity<String> clearFavouriteList(@PathVariable String userEmail)
 	{
 		favouriteListServiceImpl.clearFavouriteList(userEmail);
-		return new ResponseEntity<String>("Favourite list cleared", HttpStatus.OK);
+		return new ResponseEntity<String>("favourite list cleared", HttpStatus.OK);
 	}
 	
 

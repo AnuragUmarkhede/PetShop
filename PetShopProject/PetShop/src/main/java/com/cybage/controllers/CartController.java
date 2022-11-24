@@ -46,7 +46,6 @@ public class CartController {
 	public ResponseEntity<String> clearCartList(@PathVariable String userEmail)
 	{
 		cartServiceImpl.clearCartList(userEmail);
-		return new ResponseEntity<String>("Cart list cleared", HttpStatus.OK);
+		return new ResponseEntity<String>("cart list cleared", HttpStatus.OK);
 	}
-
 }

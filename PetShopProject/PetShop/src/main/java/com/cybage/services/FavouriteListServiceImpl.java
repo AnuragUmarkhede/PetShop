@@ -174,6 +174,13 @@ public class FavouriteListServiceImpl implements IFavouriteListService {
 		return favouriteItemRepository.getFavouriteList(userEmail);
 	}
 
+
+//	@Override
+//	public void clearFavouriteList(String sessionToken) {
+//		FavouriteList favouriteList = favouriteListRepository.findBySessionToken(sessionToken);
+//		favouriteListRepository.delete(favouriteList);
+//	}
+
 	@Override
 	public void removeFavouriteItem(int id,String userEmail) 
 	{
@@ -188,7 +195,7 @@ public class FavouriteListServiceImpl implements IFavouriteListService {
 		favouriteItemRepository.delete(item);
 		favouriteItemRepository.saveAll(favouriteItems);
 	}
-	
+
 	@Override
 	public void clearFavouriteList(String userEmail) {
 		List<FavouriteItem> favouriteList = favouriteItemRepository.getFavouriteList(userEmail);

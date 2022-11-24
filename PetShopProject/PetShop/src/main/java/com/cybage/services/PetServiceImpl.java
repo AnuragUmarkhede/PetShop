@@ -20,9 +20,9 @@ public class PetServiceImpl implements IPetService {
 
 	@Autowired
 	PetDto petDto;
-
+	
 	@Autowired
-	FileService fileService;
+	IDiskStorageService diskstorageService;
 
 	@Override
 	public Pet addPet(PetDto petDto) {
@@ -33,7 +33,8 @@ public class PetServiceImpl implements IPetService {
 		pet.setPetDescription(petDto.getPetDescription());
 		pet.setPetPrice(petDto.getPetPrice());
 		pet.setGender(petDto.getGender());
-		pet.setPetImage(fileService.getImageData(petDto.getPetImage()));
+		pet.setPetImage(diskstorageService.store(petDto.getPetImage()));
+		
 		petsList.add(pet);
 
 		PetCategory petCategory = new PetCategory();
@@ -55,7 +56,7 @@ public class PetServiceImpl implements IPetService {
 		petToBeUpdated.setPetDescription(petDto.getPetDescription());
 		petToBeUpdated.setPetPrice(petDto.getPetPrice());
 		petToBeUpdated.setGender(petDto.getGender());
-		petToBeUpdated.setPetImage(fileService.getImageData(petDto.getPetImage()));
+		petToBeUpdated.setPetImage(diskstorageService.store(petDto.getPetImage()));
 
 		return petRepository.save(petToBeUpdated);
 	}

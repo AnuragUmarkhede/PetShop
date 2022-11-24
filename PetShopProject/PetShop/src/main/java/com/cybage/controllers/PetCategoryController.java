@@ -27,7 +27,7 @@ public class PetCategoryController {
 	PetCategoryServiceImpl petCategoryServiceImpl;
 
 	@PostMapping("/addPetCategory")
-	public ResponseEntity<String> addPetCategory(@RequestParam("file") MultipartFile file,
+	public ResponseEntity<String> addPetCategory(@RequestParam("categoryImage") MultipartFile file,
 			@RequestParam("categoryName") String categoryName) {
 		petCategoryServiceImpl.addPetCategory(file, categoryName);
 		return new ResponseEntity<String>("Pet category details added!", HttpStatus.OK);
@@ -35,7 +35,7 @@ public class PetCategoryController {
 
 	@PutMapping("/updatePetCategory/{categoryId}")
 	public ResponseEntity<PetCategory> updatePetCategory(@PathVariable int categoryId,
-			@RequestParam("file") MultipartFile file, @RequestParam("categoryName") String categoryName) {
+			@RequestParam("categoryImage") MultipartFile file, @RequestParam("categoryName") String categoryName) {
 		return new ResponseEntity<PetCategory>(petCategoryServiceImpl.updatePetCategory(file, categoryId, categoryName),
 				HttpStatus.OK);
 	}

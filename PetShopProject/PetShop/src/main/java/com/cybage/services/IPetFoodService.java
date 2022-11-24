@@ -9,11 +9,11 @@ import com.cybage.entities.PetFood;
 public interface IPetFoodService {
 
 	// Method to add pet food details
-	public void addPetFood(MultipartFile file, String foodName, String foodCategory, double foodPrice,
+	public void addPetFood(MultipartFile foodImage, String foodName, String foodCategory, double foodPrice,
 			int foodQuantity);
 
 	// Method to update pet food details
-	public void updatePetFood(int foodId, MultipartFile file, String foodName, String foodCategory, double foodPrice,
+	public void updatePetFood(int foodId, MultipartFile foodImage, String foodName, String foodCategory, double foodPrice,
 			int foodQuantity);
 
 	// Method to delete pet food details

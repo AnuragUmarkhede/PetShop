@@ -1,12 +1,9 @@
 package com.cybage.services;
 
-import java.io.IOException;
-import java.util.Base64;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.cybage.daos.PetCategoryRepository;
@@ -17,39 +14,26 @@ import com.cybage.exceptions.PetCateogryNotFoundException;
 public class PetCategoryServiceImpl implements IPetCategoryService {
 	@Autowired
 	PetCategoryRepository petCategoryRepository;
+	
+	@Autowired
+	IDiskStorageService diskstorageService;
 
 	@Override
-	public void addPetCategory(MultipartFile file, String categoryName) {
-
+	public void addPetCategory(MultipartFile categoryImage, String categoryName) {
+		
 		PetCategory petCategory = new PetCategory();
-		String fileName = StringUtils.cleanPath(file.getOriginalFilename());
-		if (fileName.contains("..")) {
-			System.out.println("not a valid file");
-		}
-		try {
-			petCategory.setCategoryImage(Base64.getEncoder().encodeToString(file.getBytes()));
-		} catch (IOException e) {
-
-			e.printStackTrace();
-		}
+		
+		petCategory.setCategoryImage(diskstorageService.store(categoryImage));
 		petCategory.setCategoryName(categoryName);
 		petCategoryRepository.save(petCategory);
 	}
 
 	@Override
-	public PetCategory updatePetCategory(MultipartFile file, int categoryId, String categoryName) {
+	public PetCategory updatePetCategory(MultipartFile categoryImage, int categoryId, String categoryName) {
 		PetCategory petCategoryToBeUpdated = petCategoryRepository.findById(categoryId).orElseThrow(
 				() -> new PetCateogryNotFoundException("Pet category does not exist for category id " + categoryId));
-		String fileName = StringUtils.cleanPath(file.getOriginalFilename());
-		if (fileName.contains("..")) {
-			System.out.println("not a valid file");
-		}
-		try {
-			petCategoryToBeUpdated.setCategoryImage(Base64.getEncoder().encodeToString(file.getBytes()));
-		} catch (IOException e) {
-
-			e.printStackTrace();
-		}
+	
+		petCategoryToBeUpdated.setCategoryImage(diskstorageService.store(categoryImage));
 		petCategoryToBeUpdated.setCategoryName(categoryName);
 		return petCategoryRepository.save(petCategoryToBeUpdated);
 	}
