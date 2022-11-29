@@ -101,26 +101,26 @@ public class FavouriteListServiceImpl implements IFavouriteListService {
 		{
 			String foodCategory = petFood.getFoodCategory();
 			
-			if(foodCategory.equals("Dog food"))
+			if(foodCategory.equals("DogFood"))
 			{
 				petFoodsList.add(petFoodServiceImpl.findByFoodId(id));
 				favouriteItem.setPetFoods(petFoodsList);
 				favouriteItemList.add(favouriteItem);
 			}
 			
-			else if(foodCategory.equals("Cat food"))
+			else if(foodCategory.equals("CatFood"))
 			{
 				petFoodsList.add(petFoodServiceImpl.findByFoodId(id));
 				favouriteItem.setPetFoods(petFoodsList);
 				favouriteItemList.add(favouriteItem);
 			}
-			else if(foodCategory.equals("Bird food"))
+			else if(foodCategory.equals("BirdFood"))
 			{
 				petFoodsList.add(petFoodServiceImpl.findByFoodId(id));
 				favouriteItem.setPetFoods(petFoodsList);
 				favouriteItemList.add(favouriteItem);
 			}
-			else if(foodCategory.equals("Fish food"))
+			else if(foodCategory.equals("FishFood"))
 			{
 				petFoodsList.add(petFoodServiceImpl.findByFoodId(id));
 				favouriteItem.setPetFoods(petFoodsList);
@@ -136,25 +136,25 @@ public class FavouriteListServiceImpl implements IFavouriteListService {
 		{
 			String itemCategory = petAccessories.getItemCategory();
 			
-			if(itemCategory.equals("Dog accessories"))
+			if(itemCategory.equals("DogAccessories"))
 			{
 				petAccessoriesList.add(petAccessoriesServiceImpl.findByItemId(id));
 				favouriteItem.setPetAccessories(petAccessoriesList);
 				favouriteItemList.add(favouriteItem);
 			}
-			else if(itemCategory.equals("Cat accessories"))
+			else if(itemCategory.equals("CatAccessories"))
 			{
 				petAccessoriesList.add(petAccessoriesServiceImpl.findByItemId(id));
 				favouriteItem.setPetAccessories(petAccessoriesList);
 				favouriteItemList.add(favouriteItem);
 			}
-			else if(itemCategory.equals("Bird accessories"))
+			else if(itemCategory.equals("BirdAccessories"))
 			{
 				petAccessoriesList.add(petAccessoriesServiceImpl.findByItemId(id));
 				favouriteItem.setPetAccessories(petAccessoriesList);
 				favouriteItemList.add(favouriteItem);
 			}
-			else if(itemCategory.equals("Fish accessories"))
+			else if(itemCategory.equals("FishAccessories"))
 			{
 				petAccessoriesList.add(petAccessoriesServiceImpl.findByItemId(id));
 				favouriteItem.setPetAccessories(petAccessoriesList);
